@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, viewport-fit=cover">
+  <title>Reporte mantenimiento</title>
+  
+  <link rel="stylesheet" href="archivos/bootstrap.min.css">
+  <link rel="stylesheet" href="archivos/estilo.css">  
+
+  <link rel="shortcut icon" type="image/ico" href="archivos/icons/favicon.ico"/>
+  <link rel="manifest" href="manifest.json">
+  <!-- Android -->
+  <meta name="theme-color" content="#000000">
+  <!-- IOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="archivos/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="archivos/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="archivos/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="archivos/icons/icon-152x152.png">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Reportes">
+
+</head>
+<body onload="leerDatos()">
+  <div class="container-md">
+    <div class="row py-2 my-1 justify-content-evenly" id="titulo">
+      <div class="col-auto">
+        <h3 class="text-white">Reporte mantenimiento</h3>
+      </div>
+      <div class="col-auto">
+        <select class="form-select bg-dark text-white" id="correctivo" title="tipoMant">
+          <option selected>preventivo</option>
+          <option>correctivo</option>
+        </select>
+      </div>
+      <div class="col col-xs-4 col-sm-5 col-md-5">
+        <label class="visually-hidden" for="fechaInput" id="lFecha">Fecha:</label>
+        <input type="text" class="form-control bg-dark text-white" id="fechaInput" placeholder="Fecha">
+      </div>
+    </div>
+    <form class="row gy-2 gx-3 my-1 align-items-center" onsubmit="createPDF(event)">
+      <div class="col-auto">
+        <label class="visually-hidden" for="equipoInput" id="lEquipo">Equipo:</label>
+        <input type="text" class="form-control bg-dark text-white" id="equipoInput" placeholder="Equipo" required>
+      </div>
+      <div class="col-auto">
+        <label class="visually-hidden" for="marcaSelect" id="lMarca">Marca:</label>
+        <input type="text" class="form-control bg-dark text-white" id="marcaInput" placeholder="Marca" required>
+        <!-- <select class="form-select bg-dark text-white" id="marcaSelect">
+          <option selected>Marca</option>
+          <option value="1">Marca 1</option>
+        </select> -->
+      </div>
+      <div class="col-auto">
+        <label class="visually-hidden" for="modeloSelect" id="lModelo">Modelo:</label>
+        <input type="text" class="form-control bg-dark text-white" id="modeloInput" placeholder="Modelo" required>
+        <!-- <select class="form-select bg-dark text-white" id="modeloSelect">
+          <option selected>Modelo</option>
+          <option value="1">Modelo 1</option>
+        </select> -->
+      </div>
+      <div class="col-auto">
+        <label class="visually-hidden" for="serieInput" id="lSerie">Serie:</label>
+        <input type="text" class="form-control bg-dark text-white" id="serieInput" placeholder="Número de serie" required>
+      </div>
+      <div class="col-auto">
+        <label class="visually-hidden" for="serieInput" id="lUbica">Ubicación</label>
+        <input type="text" class="form-control bg-dark text-white" id="ubicaInput" placeholder="Ubicación" required>
+      </div>   
+
+      <div class="row mt-3 mx-0 pb-1 borde-inf">
+        <div class="text-center text-white">
+          Identicicacion de equipo
+        </div>      
+      </div>
+      <div class="row mt-1 mx-0 gx-2">
+        <div class="col ">
+          <div class="input-group-sm">                 
+            <label for="inputIdent" class="text-white">Placa de identificacíon</label>
+            <input type="file" class="form-control bg-dark text-white" id="inputIdent" accept=".jpg, .jpeg" title="Identificación" onchange="onFileSelected(event, 'imgIdent')">
+            <img class="visually-hidden" id="imgIdent" height="124">
+          </div>
+        </div>
+        <div class="col ">
+          <div class="input-group-sm">
+            <label for="inputClave" class="text-white">Clave CABMS</label>
+            <input type="file" class="form-control bg-dark text-white" id="inputClave" accept=".jpg, .jpeg" title="Clave" onchange="onFileSelected(event, 'imgClave')">
+            <img class="visually-hidden" id="imgClave" height="124">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2 mx-0 borde-inf">
+        <div class="text-center text-white">
+          Antes del servicio
+        </div>
+      </div>
+      <div class="row mt-2 mx-0 gx-2">
+        <div class="col ">
+          <div class="input-group-sm">          
+            <input type="file" class="form-control bg-dark text-white" id="inputAnts1" accept=".jpg, .jpeg" title="Antes 1" onchange="onFileSelected(event, 'imgAnts1')">
+            <img class="visually-hidden" id="imgAnts1" height="124">
+          </div>
+        </div>
+        <div class="col ">
+          <div class="input-group-sm">          
+            <input type="file" class="form-control bg-dark text-white" id="inputAnts2" accept=".jpg, .jpeg" title="Antes 2" onchange="onFileSelected(event, 'imgAnts2')">
+            <img class="visually-hidden" id="imgAnts2" height="124">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2 mx-0 borde-inf">
+        <div class="text-center text-white">
+          Durante el servicio
+        </div>
+      </div>
+      <div class="row mt-2 mx-0 gx-2">
+        <div class="col ">
+          <div class="input-group-sm">          
+            <input type="file" class="form-control bg-dark text-white" id="inputDurant1" accept=".jpg, .jpeg" title="Durante 1" onchange="onFileSelected(event, 'imgDurant1')">
+            <img class="visually-hidden" id="imgDurant1" height="124">
+          </div>
+        </div>
+        <div class="col ">
+          <div class="input-group-sm">          
+            <input type="file" class="form-control bg-dark text-white" id="inputDurant2" accept=".jpg, .jpeg" title="Durante 2" onchange="onFileSelected(event, 'imgDurant2')">
+            <img class="visually-hidden" id="imgDurant2" height="124">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3 mx-0 borde-inf">
+        <div class="text-center text-white">
+          Después del servicio
+        </div>
+      </div>
+      <div class="row mt-2 mx-0 gx-2">
+        <div class="col ">
+          <div class="input-group-sm">          
+            <input type="file" class="form-control bg-dark text-white" id="inputDespues1" accept=".jpg, .jpeg" title="Despues 1" onchange="onFileSelected(event, 'imgDespues1')">
+            <img class="visually-hidden" id="imgDespues1" height="124">
+          </div>
+        </div>
+        <div class="col ">
+          <div class="input-group-sm">          
+            <input type="file" class="form-control bg-dark text-white" id="inputDespues2" accept=".jpg, .jpeg" title="Despues 2" onchange="onFileSelected(event, 'imgDespues2')">
+            <img class="visually-hidden" id="imgDespues2" height="124">
+          </div>
+        </div>
+      </div>
+      <div class="row my-4 mx-0">
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary px-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Generar PDF</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="offcanvas offcanvas-top mx-3" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-header p-2">
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" id='btnCerrar'></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <iframe src="" frameborder="0" id="iframePDF"></iframe>
+    </div>
+    <div class="p-2 text-center">
+      <button type="button" class="btn btn-primary btn-sm px-5" id="btnDescargar">Descargar</button>
+    </div>
+  </div>
+  <footer></footer>
+  <script src="archivos/bootstrap.min.js"></script>
+  <script src="archivos/scripts.js"></script>
+  <script src="archivos/jspdf.min.js"></script>
+</body>
+</html>
