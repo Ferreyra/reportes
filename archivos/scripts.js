@@ -15,6 +15,19 @@ function leerDatos() {
   pdf = new jsPDF('p', 'pt', 'letter', false, true)
 }
 
+function limpiarDatos() {
+  const entradas = document.querySelectorAll('input')
+  entradas.forEach(entrada => {
+    entrada.value = ""
+  });
+  const imagenes = document.querySelectorAll('img')
+  imagenes.forEach(imagen => {
+    imagen.removeAttribute('alt')
+    imagen.removeAttribute('src')
+    imagen.classList.add("visually-hidden")
+  });
+}
+
 function onFileSelected(event, imgTxt) {
   const selectedFile = event.target.files[0]   
   const reader = new FileReader()  
@@ -132,7 +145,9 @@ function createPDF(event) {
   document.getElementById('btnDescargar').addEventListener('click', () => {    
     pdf.save(ubicacion +' '+ txtEquipo.value +' '+ inFecha +'.pdf')
     document.getElementById('offcanvasTop').classList.remove('show')
-    window.location.reload()
+    // window.location.reload()
+    limpiarDatos()
+    leerDatos()
   })
   document.getElementById('btnCerrar').addEventListener('click', () => {
     pdf = new jsPDF('p', 'pt', 'letter', false, true)

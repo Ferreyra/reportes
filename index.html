@@ -25,16 +25,17 @@
 </head>
 <body onload="leerDatos()">
   <div class="container-md">
-    <div class="row py-2 my-1 justify-content-evenly" id="titulo">
-      <div class="col-auto">
+    <div class="input-group mb-3 mx-1" id="titulo">
+      <label class="input-group-text text-white fs-3" for="correctivo">Reporte mantenimiento</label>
+      <!-- <div class="col-auto">
         <h3 class="text-white">Reporte mantenimiento</h3>
       </div>
-      <div class="col-auto">
-        <select class="form-select bg-dark text-white" id="correctivo" title="tipoMant">
+      <div class="col-auto"> -->
+        <select class="form-select text-white fs-4" id="correctivo" title="tipoMant">
           <option selected>preventivo</option>
           <option>correctivo</option>
         </select>
-      </div>
+      <!-- </div> -->
       <div class="col col-xs-4 col-sm-5 col-md-5">
         <label class="visually-hidden" for="fechaInput" id="lFecha">Fecha:</label>
         <input type="text" class="form-control bg-dark text-white" id="fechaInput" placeholder="Fecha">
