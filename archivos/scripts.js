@@ -42,9 +42,9 @@ function createPDF(event) {
   event.preventDefault()
 
   // impresión recuadros de tabla y textos
-  const titulo = document.getElementsByTagName('h3')
+  const titulo = document.getElementsById('titulo')
   pdf.setFontSize(18)
-  pdf.text(titulo[0].innerText, 58, 84)
+  pdf.text(titulo.innerHTML, 58, 84)
   const mantPoC = document.getElementById('correctivo').selectedOptions[0].text
   pdf.text(mantPoC, 248, 84)
   pdf.setFontSize(12)
