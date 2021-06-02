@@ -25,30 +25,25 @@
 </head>
 <body onload="leerDatos()">
   <div class="container-md">
-    <div class="input-group mb-3 mx-1" id="titulo">
-      <label class="input-group-text text-white fs-3" for="correctivo">Reporte mantenimiento</label>
-      <!-- <div class="col-auto">
-        <h3 class="text-white">Reporte mantenimiento</h3>
-      </div>
-      <div class="col-auto"> -->
-        <select class="form-select text-white fs-4" id="correctivo" title="tipoMant">
+    <div class="row mb-3" id="titulo">
+      <div class="col-12 input-group gx-0">
+        <label class="input-group-text text-white fs-4" for="correctivo">Reporte mantenimiento</label>
+        <select class="form-select text-white fs-4 fit-content" id="correctivo" title="Tipo de Mantenimineto">
           <option selected>preventivo</option>
           <option>correctivo</option>
         </select>
-      <!-- </div> -->
-      <div class="col col-xs-4 col-sm-5 col-md-5">
         <label class="visually-hidden" for="fechaInput" id="lFecha">Fecha:</label>
-        <input type="text" class="form-control bg-dark text-white" id="fechaInput" placeholder="Fecha">
+        <input type="text" class="form-control bg-dark text-white mx-auto d-block px-1 rounded" id="fechaInput" placeholder="Fecha">
       </div>
     </div>
     <form class="row gy-2 gx-3 my-1 align-items-center" onsubmit="createPDF(event)">
       <div class="col-auto">
         <label class="visually-hidden" for="equipoInput" id="lEquipo">Equipo:</label>
-        <input type="text" class="form-control bg-dark text-white" id="equipoInput" placeholder="Equipo" required>
+        <input type="text" class="form-control bg-dark text-white py-1" id="equipoInput" placeholder="Equipo" required>
       </div>
       <div class="col-auto">
         <label class="visually-hidden" for="marcaSelect" id="lMarca">Marca:</label>
-        <input type="text" class="form-control bg-dark text-white" id="marcaInput" placeholder="Marca" required>
+        <input type="text" class="form-control bg-dark text-white py-1" id="marcaInput" placeholder="Marca" required>
         <!-- <select class="form-select bg-dark text-white" id="marcaSelect">
           <option selected>Marca</option>
           <option value="1">Marca 1</option>
@@ -56,7 +51,7 @@
       </div>
       <div class="col-auto">
         <label class="visually-hidden" for="modeloSelect" id="lModelo">Modelo:</label>
-        <input type="text" class="form-control bg-dark text-white" id="modeloInput" placeholder="Modelo" required>
+        <input type="text" class="form-control bg-dark text-white py-1" id="modeloInput" placeholder="Modelo" required>
         <!-- <select class="form-select bg-dark text-white" id="modeloSelect">
           <option selected>Modelo</option>
           <option value="1">Modelo 1</option>
@@ -64,13 +59,16 @@
       </div>
       <div class="col-auto">
         <label class="visually-hidden" for="serieInput" id="lSerie">Serie:</label>
-        <input type="text" class="form-control bg-dark text-white" id="serieInput" placeholder="Número de serie" required>
+        <input type="text" class="form-control bg-dark text-white py-1" id="serieInput" placeholder="Número de serie" required>
       </div>
       <div class="col-auto">
         <label class="visually-hidden" for="serieInput" id="lUbica">Ubicación</label>
-        <input type="text" class="form-control bg-dark text-white" id="ubicaInput" placeholder="Ubicación" required>
-      </div>   
-
+        <input type="text" class="form-control bg-dark text-white py-1" id="ubicaInput" placeholder="Ubicación" required>
+      </div>
+      <div class="col-auto">
+        <label class="visually-hidden" for="serieInput" id="lCABMS">Ubicación</label>
+        <input type="text" class="form-control bg-dark text-white py-1" id="CABMSInput" placeholder="CABMS">
+      </div>
       <div class="row mt-3 mx-0 pb-1 borde-inf">
         <div class="text-center text-white">
           Identicicacion de equipo
@@ -81,14 +79,14 @@
           <div class="input-group-sm">                 
             <label for="inputIdent" class="text-white">Placa de identificacíon</label>
             <input type="file" class="form-control bg-dark text-white" id="inputIdent" accept=".jpg, .jpeg" title="Identificación" onchange="onFileSelected(event, 'imgIdent')">
-            <img class="visually-hidden" id="imgIdent" height="124">
+            <img class="mx-auto d-block visually-hidden" id="imgIdent" height="124">
           </div>
         </div>
         <div class="col ">
           <div class="input-group-sm">
             <label for="inputClave" class="text-white">Clave CABMS</label>
             <input type="file" class="form-control bg-dark text-white" id="inputClave" accept=".jpg, .jpeg" title="Clave" onchange="onFileSelected(event, 'imgClave')">
-            <img class="visually-hidden" id="imgClave" height="124">
+            <img class="mx-auto d-block visually-hidden" id="imgClave" height="124">
           </div>
         </div>
       </div>
@@ -97,17 +95,17 @@
           Antes del servicio
         </div>
       </div>
-      <div class="row mt-2 mx-0 gx-2">
+      <div class="row mx-0 mt-0 gx-2 gy-2">
         <div class="col ">
           <div class="input-group-sm">          
             <input type="file" class="form-control bg-dark text-white" id="inputAnts1" accept=".jpg, .jpeg" title="Antes 1" onchange="onFileSelected(event, 'imgAnts1')">
-            <img class="visually-hidden" id="imgAnts1" height="124">
+            <img class="mx-auto d-block visually-hidden" id="imgAnts1" height="124">
           </div>
         </div>
         <div class="col ">
           <div class="input-group-sm">          
             <input type="file" class="form-control bg-dark text-white" id="inputAnts2" accept=".jpg, .jpeg" title="Antes 2" onchange="onFileSelected(event, 'imgAnts2')">
-            <img class="visually-hidden" id="imgAnts2" height="124">
+            <img class="mx-auto d-block visually-hidden" id="imgAnts2" height="124">
           </div>
         </div>
       </div>
@@ -116,17 +114,17 @@
           Durante el servicio
         </div>
       </div>
-      <div class="row mt-2 mx-0 gx-2">
+      <div class="row mx-0 mt-0 gx-2 gy-2">
         <div class="col ">
           <div class="input-group-sm">          
             <input type="file" class="form-control bg-dark text-white" id="inputDurant1" accept=".jpg, .jpeg" title="Durante 1" onchange="onFileSelected(event, 'imgDurant1')">
-            <img class="visually-hidden" id="imgDurant1" height="124">
+            <img class="mx-auto d-block visually-hidden" id="imgDurant1" height="124">
           </div>
         </div>
         <div class="col ">
           <div class="input-group-sm">          
             <input type="file" class="form-control bg-dark text-white" id="inputDurant2" accept=".jpg, .jpeg" title="Durante 2" onchange="onFileSelected(event, 'imgDurant2')">
-            <img class="visually-hidden" id="imgDurant2" height="124">
+            <img class="mx-auto d-block visually-hidden" id="imgDurant2" height="124">
           </div>
         </div>
       </div>
@@ -135,17 +133,17 @@
           Después del servicio
         </div>
       </div>
-      <div class="row mt-2 mx-0 gx-2">
+      <div class="row mx-0 mt-0 gx-2 gy-2">
         <div class="col ">
           <div class="input-group-sm">          
             <input type="file" class="form-control bg-dark text-white" id="inputDespues1" accept=".jpg, .jpeg" title="Despues 1" onchange="onFileSelected(event, 'imgDespues1')">
-            <img class="visually-hidden" id="imgDespues1" height="124">
+            <img class="mx-auto d-block visually-hidden" id="imgDespues1" height="124">
           </div>
         </div>
         <div class="col ">
           <div class="input-group-sm">          
             <input type="file" class="form-control bg-dark text-white" id="inputDespues2" accept=".jpg, .jpeg" title="Despues 2" onchange="onFileSelected(event, 'imgDespues2')">
-            <img class="visually-hidden" id="imgDespues2" height="124">
+            <img class="mx-auto d-block visually-hidden" id="imgDespues2" height="124">
           </div>
         </div>
       </div>
