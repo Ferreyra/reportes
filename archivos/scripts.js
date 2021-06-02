@@ -40,9 +40,8 @@ function onFileSelected(event, imgTxt) {
 
 function createPDF(event) { 
   event.preventDefault()
-
   // impresión recuadros de tabla y textos
-  const titulo = document.getElementsById('titulo')
+  const titulo = document.getElementById('titulo')
   pdf.setFontSize(18)
   pdf.text(titulo.children[0].innerText, 58, 84)
   const mantPoC = document.getElementById('correctivo').selectedOptions[0].text
@@ -145,9 +144,9 @@ function createPDF(event) {
   document.getElementById('btnDescargar').addEventListener('click', () => {    
     pdf.save(ubicacion +' '+ txtEquipo.value +' '+ inFecha +'.pdf')
     document.getElementById('offcanvasTop').classList.remove('show')
-    // window.location.reload()
-    limpiarDatos()
-    leerDatos()
+    window.location.reload()
+    // limpiarDatos()
+    // leerDatos()
   })
   document.getElementById('btnCerrar').addEventListener('click', () => {
     pdf = new jsPDF('p', 'pt', 'letter', false, true)
