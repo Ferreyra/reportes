@@ -16,10 +16,6 @@ function leerDatos() {
 }
 
 function limpiarDatos() {
-  const entradas = document.querySelectorAll('input')
-  entradas.forEach(entrada => {
-    entrada.value = ""
-  });
   const imagenes = document.querySelectorAll('img')
   imagenes.forEach(imagen => {
     imagen.removeAttribute('alt')
@@ -144,8 +140,9 @@ function createPDF(event) {
   document.getElementById('btnDescargar').addEventListener('click', () => {    
     pdf.save(ubicacion +' '+ txtEquipo.value +' '+ inFecha +'.pdf')
     document.getElementById('offcanvasTop').classList.remove('show')
-    window.location.reload()
-    // limpiarDatos()
+    // window.location.reload()
+    document.querySelector('form').reset()
+    limpiarDatos()
     // leerDatos()
   })
   document.getElementById('btnCerrar').addEventListener('click', () => {
