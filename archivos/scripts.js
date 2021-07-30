@@ -54,6 +54,8 @@ function createPDF(event) {
   }  
   pdf.text(lFecha.innerText, 368, 86)
   pdf.text(txtFecha.value, 410, 86)
+  const ubicacion = document.getElementById('ubicaInput').value
+  pdf.text(ubicacion, 460, 75)
   pdf.rect(58, 94, 494, 66)     
   pdf.line(58, 127, 552, 127)   
   pdf.line(305, 94, 305, 160)   // Mitad de la tabla 305
@@ -95,6 +97,8 @@ function createPDF(event) {
   const txtMarca = document.getElementById('marcaInput')
   pdf.text(lMarca.innerText, 308, 114)
   pdf.text(txtMarca.value, 350, 114)
+  const cabms = document.getElementById('CABMSInput').value
+  pdf.text(cabms, 380, 240)
 
   pdf.setFontSize(9)
   pdf.text('Placa de Identificación', 70, 170, 270)
@@ -136,7 +140,7 @@ function createPDF(event) {
   }
   const iframe = document.getElementById('iframePDF')
   iframe.src = pdf.output('datauristring') 
-  const ubicacion = document.getElementById('ubicaInput').value 
+  
   document.getElementById('btnDescargar').addEventListener('click', () => {    
     pdf.save(ubicacion +' '+ txtEquipo.value +' '+ inFecha +'.pdf')
     document.getElementById('offcanvasTop').classList.remove('show')
