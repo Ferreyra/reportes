@@ -102,7 +102,7 @@ function createPDF(event) {
   pdf.text('Placa de Identificación', 70, 170, 270)
   pdf.text('Clave CABMS', 318, 170, 270)
   const cabms = document.getElementById('CABMSInput').value
-  pdf.text(cabms, 330, 170, 270)
+  pdf.text(cabms, 340, 170, 270)
   pdf.text('Antes del servicio', 70, 298, 270)
   pdf.text('Antes del servicio', 318, 298, 270)
   pdf.text('Durante el servicio', 70, 427, 270)
