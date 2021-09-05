@@ -75,7 +75,7 @@ function strNdos (str) {
   let lgWords = strArr[0].length
   do {
     i++
-    lgWords += strArr[i].length
+    lgWords += strArr[i].length + 1
   } while (lgWords <= 32)
   lgWords -= strArr[i].length
   strArr[0] = str.substr(0, lgWords)
@@ -102,7 +102,7 @@ function createPDF(event) {
   pdf.text(lFecha.innerText, 368, 86)
   pdf.text(txtFecha.value, 410, 86)
   const ubicacion = document.getElementById('ubicaInput').value
-  pdf.text(ubicacion, 454, 72)
+  pdf.text(ubicacion, 368, 72)
 
   pdf.setFontSize(10)
   pdf.text('Elaboró:', 110, 702)
@@ -113,8 +113,8 @@ function createPDF(event) {
     
   if (txtEquipo.length > 32) {
     let t2Equipo = strNdos (txtEquipo)
-    pdf.text(t2Equipo[0], 104, 104)
-    pdf.text(t2Equipo[1], 104, 124)
+    pdf.text(t2Equipo[0], 104, 107)
+    pdf.text(t2Equipo[1], 104, 121)
   } else {
     pdf.text(txtEquipo, 104, 114)
   }
