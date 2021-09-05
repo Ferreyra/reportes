@@ -69,6 +69,20 @@ function onFileSelected(event, imgTxt) {
   document.getElementById(imgTxt).classList.remove("visually-hidden")
 }
 
+function strNdos (str) {
+  let strArr = str.split(' ')
+  let i = 0
+  let lgWords = strArr[0].length
+  do {
+    i++
+    lgWords += strArr[i].length
+  } while (lgWords <= 32)
+  lgWords -= strArr[i].length
+  strArr[0] = str.substr(0, lgWords)
+  strArr[1] = str.substr(lgWords)
+  return [strArr[0], strArr[1]]
+}
+
 function createPDF(event) { 
   event.preventDefault()
   // impresión textos
@@ -94,9 +108,16 @@ function createPDF(event) {
   pdf.text('Elaboró:', 110, 702)
   pdf.text('Ing. Fernando Monzón Arellano', 125, 733)
   const lEquipo = document.getElementById('lEquipo')
-  const txtEquipo = document.getElementById('equipoInput')  
   pdf.text(lEquipo.innerText, 62, 114)
-  pdf.text(txtEquipo.value, 104, 114)
+  const txtEquipo = document.getElementById('equipoInput').value 
+    
+  if (txtEquipo.length > 32) {
+    let t2Equipo = strNdos (txtEquipo)
+    pdf.text(t2Equipo[0], 104, 104)
+    pdf.text(t2Equipo[1], 104, 124)
+  } else {
+    pdf.text(txtEquipo, 104, 114)
+  }
 
   const lModelo = document.getElementById('lModelo')
   // const txtModelo = document.getElementById('modeloSelect').selectedOptions[0].text
