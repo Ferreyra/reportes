@@ -13,13 +13,12 @@ const APP_SHELL = [
 const APP_SHELL_INMUTABLE = [
   'archivos/bootstrap.min.css',
   'archivos/bootstrap.min.js',
-  'archivos/jspdf.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js'
 ];
 
-function actCacheDinamico( dynamicCache, req, res ) {
+function actCache( rqcache, req, res ) {
   if ( res.ok ) {
-    return caches.open( dynamicCache ).then( cache => {
+    return caches.open( rqcache ).then( cache => {
       cache.put( req, res.clone() );      
       return res.clone();
     });
@@ -52,12 +51,16 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener( 'fetch', e => {
+  
   const respuesta = caches.match( e.request ).then( res => {
       if ( res ) {
+          if ( !e.request.url.includes('min')) {
+              actCache( STATIC_CACHE, e.request, res );    
+          }               
           return res;
       } else {
           return fetch( e.request ).then( newRes => {
-              return actCacheDinamico( DYNAMIC_CACHE, e.request, newRes );
+              return actCache( DYNAMIC_CACHE, e.request, newRes );
           });
       }
   });
