@@ -1,5 +1,6 @@
 var url = window.location.href;
 const { jsPDF } = window.jspdf;
+
 var swLocation = '/reportes/sw.js';
 var pdf
 const canvas = document.getElementById('offcanvasTop')
@@ -14,14 +15,29 @@ if ( navigator.serviceWorker ) {
 
 function formatoPDF() {
   // impresión recuadros de tabla
-  pdf.setFontSize(18)
-  const titulo = document.getElementById('titulo')
-  pdf.text(titulo.children[0].innerText, 58, 84)
-  pdf.rect(58, 94, 494, 66)     
-  pdf.line(58, 127, 552, 127)   
-  pdf.line(305, 94, 305, 160)   // Mitad de la tabla 305
+  pdf.setFontSize(18)  
+  pdf.text('Reporte mantenimiento', 58, 84)
+  pdf.setFontSize(12)
+  pdf.text('Fecha:', 368, 86)
+
+  pdf.setFontSize(10)
+  pdf.text('Elaboró:', 100, 702)
+  pdf.text('Ing. Fernando Monzón Arellano', 115, 733)
+  pdf.text('Equipo:', 62, 114)
+  pdf.text('Lugar:', 392, 114) 
+  pdf.text('Modelo:', 62, 147) 
+  pdf.text('Marca:', 227, 147) 
+  pdf.text('Serie:', 392, 147)  
+  pdf.rect(58, 94, 495, 66)     
+  pdf.line(58, 127, 552, 127)    // Separador renglones  
+
+  pdf.line(223, 127, 223, 160)   // Mitad de la tabla 305
+  pdf.line(388, 94, 388, 160)    // Mitad de la tabla 305
+
   pdf.line(100, 94, 100, 160)   
-  pdf.line(345, 94, 345, 160)   // Separador segunda columna  
+  pdf.line(263, 127, 263, 160) 
+  pdf.line(428, 94, 428, 160)
+
   pdf.rect(90, 164, 215, 129)
   pdf.rect(90, 293, 215, 129)
   pdf.rect(90, 422, 215, 129)
@@ -30,7 +46,7 @@ function formatoPDF() {
   pdf.rect(337, 293, 215, 129)
   pdf.rect(337, 422, 215, 129)
   pdf.rect(337, 551, 215, 129)
-  pdf.rect(95, 688, 216, 59)
+  pdf.rect(90, 688, 200, 59)
   pdf.setFontSize(9)
   pdf.text('Placa de Identificación', 70, 170, 270)
   pdf.text('Clave CABMS', 318, 170, 270)
@@ -40,6 +56,7 @@ function formatoPDF() {
   pdf.text('Durante el servicio', 318, 427, 270)
   pdf.text('Después del servicio', 70, 557, 270)
   pdf.text('Después del servicio', 318, 557, 270)
+  pdf.addImage('gfm.png', 'png', 290, 622, 60, 85, undefined, 'MEDIUM')
 }
 
 function leerDatos() {
@@ -60,13 +77,31 @@ function limpiarImgs() {
 }
 
 function onFileSelected(event, imgTxt) {
-  const selectedFile = event.target.files[0]   
-  const reader = new FileReader()  
-  const imgtag = document.getElementById(imgTxt)
-  imgtag.alt = selectedFile.name
-  reader.onload = (evento) => imgtag.src = evento.target.result    
-  reader.readAsDataURL(selectedFile)
-  document.getElementById(imgTxt).classList.remove("visually-hidden")
+  const selectedFile = event.target.files[0]
+  if (selectedFile) {  
+    const reader = new FileReader()  
+    const imgtag = document.getElementById(imgTxt)
+    imgtag.alt = selectedFile.name    
+    console.log('size', selectedFile.size)
+    reader.readAsDataURL(selectedFile)
+    reader.onload = (event) => {
+      const imgElement = document.createElement('img')
+      imgElement.src = event.target.result      
+      imgElement.onload = (e) => {
+        const canvas = document.createElement("canvas"); 
+        console.log('oH:', e.target.height)   
+        const scaleSize = 750 / e.target.height;
+        console.log('Escala', scaleSize)
+        canvas.width = e.target.width * scaleSize; 
+        canvas.height = 750
+        const ctx = canvas.getContext("2d"); 
+        ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height); 
+        const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
+        imgtag.src = srcEncoded
+      }
+    }
+    document.getElementById(imgTxt).classList.remove("visually-hidden")
+  }
 }
 
 function strNdos (str) {
@@ -89,8 +124,8 @@ function createPDF(event) {
   pdf.setFontSize(18)
   const mantPoC = document.getElementById('correctivo').selectedOptions[0].text
   pdf.text(mantPoC, 248, 84)
-  pdf.setFontSize(12)
-  const lFecha = document.getElementById('lFecha')
+  pdf.setFontSize(10)
+  
   const txtFecha = document.getElementById('fechaInput')
   let inFecha = txtFecha.value.replace(" de ", "-").replace(" de ", "-")
   inFecha = inFecha.split(' ')
@@ -98,47 +133,26 @@ function createPDF(event) {
     inFecha = inFecha[0]
   } else {
     inFecha = inFecha[1]
-  }  
-  pdf.text(lFecha.innerText, 368, 86)
+  }
   pdf.text(txtFecha.value, 410, 86)
-  const ubicacion = document.getElementById('ubicaInput').value
-  pdf.text(ubicacion, 368, 72)
 
-  pdf.setFontSize(10)
-  pdf.text('Elaboró:', 110, 702)
-  pdf.text('Ing. Fernando Monzón Arellano', 125, 733)
-  const lEquipo = document.getElementById('lEquipo')
-  pdf.text(lEquipo.innerText, 62, 114)
-  const txtEquipo = document.getElementById('equipoInput').value 
-    
+  const ubicacion = document.getElementById('ubicaInput').value
+  pdf.text(ubicacion, 432, 114)    
+  const txtEquipo = document.getElementById('equipoInput').value    
   if (txtEquipo.length > 32) {
-    let t2Equipo = strNdos (txtEquipo)
+    let t2Equipo = strNdos(txtEquipo)
     pdf.text(t2Equipo[0], 104, 107)
     pdf.text(t2Equipo[1], 104, 121)
   } else {
     pdf.text(txtEquipo, 104, 114)
   }
 
-  const lModelo = document.getElementById('lModelo')
-  // const txtModelo = document.getElementById('modeloSelect').selectedOptions[0].text
   const txtModelo = document.getElementById('modeloInput')
-  pdf.text(lModelo.innerText, 62, 147)
   pdf.text(txtModelo.value, 104, 147)
-
-  const lSerie = document.getElementById('lSerie')
-  const txtSerie = document.getElementById('serieInput')
-  pdf.text(lSerie.innerText, 308, 147)
-  pdf.text(txtSerie.value, 350, 147)
-
-  const lMarca = document.getElementById('lMarca')
-  // const txtMarca = document.getElementById('marcaSelect').selectedOptions[0].text
   const txtMarca = document.getElementById('marcaInput')
-  pdf.text(lMarca.innerText, 308, 114)
-  pdf.text(txtMarca.value, 350, 114)
-
-  pdf.setFontSize(9)
-  const cabms = document.getElementById('CABMSInput').value
-  pdf.text(cabms, 340, 170, 270)
+  pdf.text(txtMarca.value, 267, 147)
+  const txtSerie = document.getElementById('serieInput')
+  pdf.text(txtSerie.value, 432, 147)  
 
   const fotos = document.getElementsByTagName('img')
   let i = 1, x = 93, y = 168
@@ -168,6 +182,9 @@ function createPDF(event) {
     }    
     i++
   }
+  pdf.setFontSize(9)
+  const cabms = document.getElementById('CABMSInput').value
+  pdf.text(cabms, 340, 170, 270)
   
   iframe.src = pdf.output('datauristring') 
   
