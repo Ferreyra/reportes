@@ -1,7 +1,7 @@
-// var url = window.location.href;
+var url = window.location.href;
 const { jsPDF } = window.jspdf;
 
-// var swLocation = '/reportes/sw.js';
+var swLocation = '/reportes/sw.js';
 var pdf, formato = false
 const canvas = document.getElementById('offcanvasTop')
 const iframe = document.getElementById('iframePDF')
@@ -11,13 +11,13 @@ cambiarFormato.addEventListener('click', () => {
   let root = document.body;   
   root.classList.toggle("lightMode");
 })
-/*
+
 if ( navigator.serviceWorker ) {
   if ( url.includes('localhost') ) {
     swLocation = '/sw.js';
   }
   navigator.serviceWorker.register( swLocation );
-}*/
+}
 
 function formatoPDF() {
   if (formato) {

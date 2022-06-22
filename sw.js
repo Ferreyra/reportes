@@ -1,6 +1,6 @@
 const STATIC_CACHE    = 'static-v2';
-const DYNAMIC_CACHE   = 'dynamic-v2';
-const INMUTABLE_CACHE = 'inmutable-v2';
+const DYNAMIC_CACHE   = 'dynamic-v2.2';
+const INMUTABLE_CACHE = 'inmutable-v2.1';
 
 const APP_SHELL = [
   '/',
@@ -13,6 +13,8 @@ const APP_SHELL = [
 const APP_SHELL_INMUTABLE = [
   'archivos/bootstrap.min.css',
   'archivos/bootstrap.min.js',
+  'archivos/gd.png',
+  'archivos/gfm.png',
   'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js'
 ];
 
@@ -54,7 +56,7 @@ self.addEventListener( 'fetch', e => {
   
   const respuesta = caches.match( e.request ).then( res => {
       if ( res ) {
-          if ( !e.request.url.includes('min')) {
+          if ( !e.request.url.includes('min' || '.png')) {
               actCache( STATIC_CACHE, e.request, res );    
           }               
           return res;
