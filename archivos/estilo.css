@@ -1,18 +1,41 @@
+:root {
+  --bg-color: #000000;
+  --bg-light: #232535;
+  --font-color: #c5cddb;
+  --font-light: #ffffff;
+  --font-w: 400;
+}
+.lightMode {
+  --bg-color: #cfd0d6;
+  --bg-light: #DCDACA;
+  --font-color: #3D3D3D;
+  --font-light: #000000;
+  --font-w: 500;
+}
+
+
+
 .borde {
   border: dotted 1px greenyellow;
 }
 
 body {
-  background-color: rgb(0, 0, 0);
+  background-color: var(--bg-color);
 }
 
 .borde-inf {
-  border-bottom: dotted 2px rgb(25, 110, 150);
+  border-bottom: dotted 2px rgb(25, 122, 167);
 }
 
 #titulo label, #titulo select{
   border: none;
-  background-color: black;
+  background-color: var(--bg-color);
+}
+
+.font-color {
+  color: var(--font-light);
+  font-weight: var(--font-w);
+  background-color: var(--bg-color);
 }
 
 #titulo select {
