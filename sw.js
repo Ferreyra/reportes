@@ -1,31 +1,36 @@
-const STATIC_CACHE    = 'static-v2';
-const DYNAMIC_CACHE   = 'dynamic-v2.2';
-const INMUTABLE_CACHE = 'inmutable-v2.1';
+const STATIC_CACHE    = 'static-v2.3';
+const DYNAMIC_CACHE   = 'dynamic-v2.4';
+const INMUTABLE_CACHE = 'inmutable-v2.5';
 
 const APP_SHELL = [
   '/',
   'index.html',
   'archivos/estilo.css',
   'archivos/scripts.js',
-  'archivos/icons/favicon.ico',  
+  'archivos/icons/favicon.ico',
+  'archivos/gd.jpg',
+  'archivos/gfm.jpg'
 ];
 
 const APP_SHELL_INMUTABLE = [
   'archivos/bootstrap.min.css',
   'archivos/bootstrap.min.js',
-  'archivos/gd.png',
-  'archivos/gfm.png',
-  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js'
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+  // 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/src/libs/png.js',
+  // 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/src/modules/addimage.js',
+  // 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/src/modules/jpeg_support.js',
+  // 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/src/modules/png_support.js'
 ];
 
-function actCache( rqcache, req, res ) {
-  if ( res.ok ) {
+function actCache( rqcache, req, resp ) {
+  if ( resp.ok ) {
+    const respClone = resp.clone()
     return caches.open( rqcache ).then( cache => {
-      cache.put( req, res.clone() );      
-      return res.clone();
+      cache.put( req, respClone );      
+      return resp;
     });
   } else {
-    return res;
+    return resp;
   }
 }
 
@@ -56,7 +61,7 @@ self.addEventListener( 'fetch', e => {
   
   const respuesta = caches.match( e.request ).then( res => {
       if ( res ) {
-          if ( !e.request.url.includes('min' || '.png')) {
+          if ( !e.request.url.includes('min')) {
               actCache( STATIC_CACHE, e.request, res );    
           }               
           return res;

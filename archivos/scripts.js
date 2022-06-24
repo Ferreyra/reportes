@@ -2,13 +2,16 @@ var url = window.location.href;
 const { jsPDF } = window.jspdf;
 
 var swLocation = '/reportes/sw.js';
-var pdf, formato = false
+var pdf, formato = true
+const formulario = document.querySelector('form')
 const canvas = document.getElementById('offcanvasTop')
 const iframe = document.getElementById('iframePDF')
 const cambiarFormato = document.getElementById('xFormato')
 cambiarFormato.addEventListener('click', () => {
   formato = !formato
-  let root = document.body;   
+  let root = document.body;
+  pdf = undefined
+  leerDatos() 
   root.classList.toggle("lightMode");
 })
 
@@ -92,12 +95,13 @@ function leerDatos() {
 }
 
 function limpiarImgs() {
-  const imagenes = document.querySelectorAll('img')
-  imagenes.forEach(imagen => {
+  const imagenes = formulario.getElementsByTagName('img')
+  // imagenes.forEach(imagen => 
+  for (const imagen of imagenes) {
     imagen.removeAttribute('alt')
     imagen.removeAttribute('src')
     imagen.classList.add("visually-hidden")
-  });
+  } // )
 }
 
 function onFileSelected(event, imgTxt) {
@@ -105,8 +109,7 @@ function onFileSelected(event, imgTxt) {
   if (selectedFile) {  
     const reader = new FileReader()  
     const imgtag = document.getElementById(imgTxt)
-    imgtag.alt = selectedFile.name    
-    console.log('size', selectedFile.size)
+    imgtag.alt = selectedFile.name     
     reader.readAsDataURL(selectedFile)
     reader.onload = (event) => {
       const imgElement = document.createElement('img')
@@ -133,7 +136,7 @@ function strNdos (str) {
   do {
     i++
     lgWords += strArr[i].length + 1
-  } while (lgWords <= 32)
+  } while (lgWords <= 40)
   lgWords -= strArr[i].length
   strArr[0] = str.substr(0, lgWords)
   strArr[1] = str.substr(lgWords)
@@ -143,24 +146,26 @@ function strNdos (str) {
 function createPDF(event) { 
   event.preventDefault()
   // impresión textos
-  const formulario = document.querySelector('form')
+  
+  const ubicacion = document.getElementById('ubicaInput').value
+  const txtSerie = document.getElementById('serieInput')
+  const txtFecha = document.getElementById('fechaInput')
+  let inFecha = txtFecha.value.replace(" de ", "-").replace(" de ", "-")
+  inFecha = inFecha.split(' ')
+  if (inFecha[1] === undefined) 
+    inFecha = inFecha[0]
+  else 
+    inFecha = inFecha[1]    
+
   if(formato) {
     pdf.setFontSize(18)
     const mantPoC = document.getElementById('correctivo').selectedOptions[0].text
     pdf.text(mantPoC, 248, 84)
-    pdf.setFontSize(10)
+
+    pdf.setFontSize(10)    
     
-    const txtFecha = document.getElementById('fechaInput')
-    let inFecha = txtFecha.value.replace(" de ", "-").replace(" de ", "-")
-    inFecha = inFecha.split(' ')
-    if (inFecha[1] === undefined) {
-      inFecha = inFecha[0]
-    } else {
-      inFecha = inFecha[1]
-    }
     pdf.text(txtFecha.value, 410, 86)
 
-    const ubicacion = document.getElementById('ubicaInput').value
     pdf.text(ubicacion, 428, 114)    
     const txtEquipo = document.getElementById('equipoInput').value    
     if (txtEquipo.length > 32) {
@@ -175,10 +180,9 @@ function createPDF(event) {
     pdf.text(txtModelo.value, 104, 147)
     const txtMarca = document.getElementById('marcaInput')
     pdf.text(txtMarca.value, 265, 147)
-    const txtSerie = document.getElementById('serieInput')
-    pdf.text(txtSerie.value, 428, 147)  
 
-    const formulario = document.querySelector('form')
+    pdf.text(txtSerie.value, 428, 147)
+
     const fotos = formulario.getElementsByTagName('img')
     let i = 1, x = 93, y = 168
     for (const foto of fotos) {
@@ -210,9 +214,9 @@ function createPDF(event) {
     pdf.setFontSize(9)
     const cabms = document.getElementById('CABMSInput').value
     pdf.text(cabms, 318, 205, 270)
-  
+    debugger
     const gafet = document.getElementById('gfm')
-    pdf.addImage(gafet.src, 'PNG', 282, 642, 73, 105, undefined, 'MEDIUM')
+    pdf.addImage(gafet.src, 'JPEG', 282, 642, 73, 105, undefined, 'MEDIUM')
   
   } else {
 
@@ -221,17 +225,15 @@ function createPDF(event) {
     pdf.text(mantPoC, 363, 75)
 
     pdf.setFontSize(10)    
-    const txtFecha = document.getElementById('fechaInput')
-    let inFecha = txtFecha.value.replace(" de ", "/").replace(" de ", "/")
-    inFecha = inFecha.split(' ')
-    if (inFecha[1] === undefined) {
-      inFecha = inFecha[0]
+    let pdfFecha = txtFecha.value.replace(" de ", "/").replace(" de ", "/")
+    pdfFecha = pdfFecha.split(' ')
+    if (pdfFecha[1] === undefined) {
+      inFecha = pdfFecha[0]
     } else {
-      inFecha = inFecha[1]
+      pdfFecha = pdfFecha[1]
     }
-    pdf.text(inFecha, 428, 96)
+    pdf.text(pdfFecha, 428, 96)
 
-    const ubicacion = document.getElementById('ubicaInput').value
     pdf.text(ubicacion, 428, 137)    
     const txtEquipo = document.getElementById('equipoInput').value    
     if (txtEquipo.length > 32) {
@@ -246,7 +248,7 @@ function createPDF(event) {
     pdf.text(txtModelo.value, 268, 132)
     const txtMarca = document.getElementById('marcaInput')
     pdf.text(txtMarca.value, 428, 116)
-    const txtSerie = document.getElementById('serieInput')
+    
     pdf.text(txtSerie.value, 106, 132)
 
     const fotos = formulario.getElementsByTagName('img')
@@ -295,14 +297,17 @@ function createPDF(event) {
     
     const cabms = document.getElementById('CABMSInput').value
     pdf.text(cabms, 378, 160)
+    debugger
     const gafet = document.getElementById('gd')
-    pdf.addImage(gafet.src, 'PNG', 142, 650, 73, 100, undefined, 'MEDIUM')
+    pdf.addImage(gafet.src, 'JPEG', 142, 650, 73, 100, undefined, 'MEDIUM')
   }
   
-  iframe.src = pdf.output('datauristring') 
+  iframe.src = pdf.output('datauristring')
+  iframe.onload = (ev) => {
+    console.log('iframe load')
+  }
   
-  document.getElementById('btnDescargar').addEventListener('click', () => {    
-    debugger
+  document.getElementById('btnDescargar').addEventListener('click', () => {
     pdf.save(ubicacion +' '+ txtSerie.value +' '+ inFecha +'.pdf')
     canvas.classList.remove('show')
     formulario.reset()
@@ -311,5 +316,6 @@ function createPDF(event) {
 }
 
 canvas.addEventListener('hide.bs.offcanvas', ()=> {
+  pdf = undefined
   leerDatos()
 })
