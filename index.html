@@ -24,140 +24,268 @@
 
 </head>
 <body onload="leerDatos()">
-  <div class="container-md">
-    <div class="row mb-3">
-      <div class="col-12 input-group gx-0" id="titulo">
-        <label class="input-group-text font-color fs-4" for="correctivo" id="xFormato">Reporte mantenimiento</label>
-        <select class="form-select font-color fs-4 fit-content" id="correctivo" title="Tipo de Mantenimineto">
+  <section>
+    <div class="grid">
+      <div class="col" id="titulo">
+        <label for="correctivo" id="xFormato">Reporte mantenimiento</label>
+        <select class="options" id="correctivo" title="Tipo de Mantenimineto">
           <option selected>preventivo</option>
           <option>correctivo</option>
         </select>
-        <label class="visually-hidden" for="fechaInput" id="lFecha">Fecha:</label>
-        <input type="text" class="form-control font-color mx-auto d-block px-1 rounded" id="fechaInput" placeholder="Fecha">
+      </div>
+      <div class="col">
+        Fecha:<span id="fechaUI"></span>
+        <div class="date">
+          <label class="date-label" for="datepicker">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_411_13" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40">
+              <rect width="40" height="40" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_411_13)">
+              <path d="M20 23.458C19.5833 23.458 19.236 23.3123 18.958 23.021C18.6807 22.729 18.542 22.3887 18.542 22C18.542 21.5833 18.6807 21.236 18.958 20.958C19.236 20.6807 19.5833 20.542 20 20.542C20.4167 20.542 20.764 20.6807 21.042 20.958C21.3193 21.236 21.458 21.5833 21.458 22C21.458 22.3887 21.3193 22.729 21.042 23.021C20.764 23.3123 20.4167 23.458 20 23.458ZM13.333 23.458C12.9163 23.458 12.5693 23.3123 12.292 23.021C12.014 22.729 11.875 22.3887 11.875 22C11.875 21.5833 12.014 21.236 12.292 20.958C12.5693 20.6807 12.9163 20.542 13.333 20.542C13.7497 20.542 14.097 20.6807 14.375 20.958C14.653 21.236 14.792 21.5833 14.792 22C14.792 22.3887 14.653 22.729 14.375 23.021C14.097 23.3123 13.7497 23.458 13.333 23.458ZM26.667 23.458C26.2503 23.458 25.903 23.3123 25.625 23.021C25.347 22.729 25.208 22.3887 25.208 22C25.208 21.5833 25.347 21.236 25.625 20.958C25.903 20.6807 26.2503 20.542 26.667 20.542C27.0837 20.542 27.4307 20.6807 27.708 20.958C27.986 21.236 28.125 21.5833 28.125 22C28.125 22.3887 27.986 22.729 27.708 23.021C27.4307 23.3123 27.0837 23.458 26.667 23.458ZM20 30C19.5833 30 19.236 29.854 18.958 29.562C18.6807 29.2707 18.542 28.9307 18.542 28.542C18.542 28.1253 18.6807 27.778 18.958 27.5C19.236 27.222 19.5833 27.083 20 27.083C20.4167 27.083 20.764 27.222 21.042 27.5C21.3193 27.778 21.458 28.1253 21.458 28.542C21.458 28.9307 21.3193 29.2707 21.042 29.562C20.764 29.854 20.4167 30 20 30ZM13.333 30C12.9163 30 12.5693 29.854 12.292 29.562C12.014 29.2707 11.875 28.9307 11.875 28.542C11.875 28.1253 12.014 27.778 12.292 27.5C12.5693 27.222 12.9163 27.083 13.333 27.083C13.7497 27.083 14.097 27.222 14.375 27.5C14.653 27.778 14.792 28.1253 14.792 28.542C14.792 28.9307 14.653 29.2707 14.375 29.562C14.097 29.854 13.7497 30 13.333 30ZM26.667 30C26.2503 30 25.903 29.854 25.625 29.562C25.347 29.2707 25.208 28.9307 25.208 28.542C25.208 28.1253 25.347 27.778 25.625 27.5C25.903 27.222 26.2503 27.083 26.667 27.083C27.0837 27.083 27.4307 27.222 27.708 27.5C27.986 27.778 28.125 28.1253 28.125 28.542C28.125 28.9307 27.986 29.2707 27.708 29.562C27.4307 29.854 27.0837 30 26.667 30ZM8.5 35.625C7.83333 35.625 7.25 35.382 6.75 34.896C6.25 34.41 6 33.8197 6 33.125V9.75C6 9.08333 6.25 8.5 6.75 8C7.25 7.5 7.83333 7.25 8.5 7.25H11.458V4.125H13.583V7.25H26.458V4.125H28.583V7.25H31.5C32.1667 7.25 32.75 7.5 33.25 8C33.75 8.5 34 9.08333 34 9.75V33.125C34 33.8197 33.75 34.41 33.25 34.896C32.75 35.382 32.1667 35.625 31.5 35.625H8.5ZM8.5 33.625H31.5C31.6113 33.625 31.7223 33.5763 31.833 33.479C31.9443 33.3817 32 33.2637 32 33.125V17H8V33.125C8 33.2637 8.05567 33.3817 8.167 33.479C8.27767 33.5763 8.38867 33.625 8.5 33.625ZM8 15.042H32V9.75C32 9.63867 31.9443 9.52767 31.833 9.417C31.7223 9.30567 31.6113 9.25 31.5 9.25H8.5C8.38867 9.25 8.27767 9.30567 8.167 9.417C8.05567 9.52767 8 9.63867 8 9.75V15.042Z" fill="#DBE1FF"/>
+              </g>
+            </svg>
+          </label>
+          <input type="date" class="date-input" id="datepicker" name="datepicker"  onchange="cambiarFecha(event)">
+        </div>
       </div>
     </div>
-    <form class="row gy-2 gx-3 my-1 align-items-center" onsubmit="createPDF(event)">
-      <div class="col-auto">
-        <label class="visually-hidden" for="equipoInput" id="lEquipo">Equipo:</label>
-        <input type="text" class="form-control font-color py-1" id="equipoInput" placeholder="Equipo" required>
-      </div>
-      <div class="col-auto">
-        <label class="visually-hidden" for="marcaSelect" id="lMarca">Marca:</label>
-        <input type="text" class="form-control font-color py-1" id="marcaInput" placeholder="Marca" required>
-        <!-- <select class="form-select font-color" id="marcaSelect">
-          <option selected>Marca</option>
-          <option value="1">Marca 1</option>
-        </select> -->
-      </div>
-      <div class="col-auto">
-        <label class="visually-hidden" for="modeloSelect" id="lModelo">Modelo:</label>
-        <input type="text" class="form-control font-color py-1" id="modeloInput" placeholder="Modelo" required>
-        <!-- <select class="form-select font-color" id="modeloSelect">
-          <option selected>Modelo</option>
-          <option value="1">Modelo 1</option>
-        </select> -->
-      </div>
-      <div class="col-auto">
-        <label class="visually-hidden" for="serieInput" id="lSerie">Serie:</label>
-        <input type="text" class="form-control font-color py-1" id="serieInput" placeholder="Número de serie" required>
-      </div>
-      <div class="col-auto">
-        <label class="visually-hidden" for="serieInput" id="lUbica">Ubicación</label>
-        <input type="text" class="form-control font-color py-1" id="ubicaInput" placeholder="Ubicación" required>
-      </div>
-      <div class="col-auto">
-        <label class="visually-hidden" for="serieInput" id="lCABMS">CABMS</label>
-        <input type="text" class="form-control font-color py-1" id="CABMSInput" placeholder="CABMS">
-      </div>
-      <div class="row mt-3 mx-0 pb-1 borde-inf">
-        <div class="text-center font-color">
-          Identicicacion de equipo
-        </div>      
-      </div>
-      <div class="row mt-1 mx-0 gx-2">
-        <div class="col ">
-          <div class="input-group-sm">                 
-            <label for="inputIdent" class="font-color">Placa de identificacíon</label>
-            <input type="file" class="form-control font-color" id="inputIdent" accept=".jpg, .jpeg" title="Identificación" onchange="onFileSelected(event, 'imgIdent')">
-            <img class="mx-auto d-block visually-hidden" id="imgIdent" height="124">
-          </div>
+    <form onsubmit="createPDF(event)">
+      <div class="grid">
+        <div class="col-auto">
+          <input type="text" id="equipoInput" required>
+          <label for="equipoInput" id="lEquipo">Equipo</label>
         </div>
-        <div class="col ">
-          <div class="input-group-sm">
-            <label for="inputClave" class="font-color">Clave CABMS</label>
-            <input type="file" class="form-control font-color" id="inputClave" accept=".jpg, .jpeg" title="Clave" onchange="onFileSelected(event, 'imgClave')">
-            <img class="mx-auto d-block visually-hidden" id="imgClave" height="124">
-          </div>
+        <div class="col-auto">
+          <input type="text" id="marcaInput" required>
+          <label for="marcaSelect" id="lMarca">Marca</label>          
+        </div>
+        <div class="col-auto">
+          <input type="text" id="modeloInput" required>         
+          <label for="modeloSelect" id="lModelo">Modelo</label>
+        </div>
+        <div class="col-auto">
+          <input type="text" id="serieInput" required>
+          <label for="serieInput" id="lSerie">Serie</label>
+        </div>
+        <div class="col-auto">
+          <input type="text" id="ubicaInput" required>
+          <label for="serieInput" id="lUbica">Ubicación</label>
+        </div>
+        <div class="col-auto">
+          <input type="text" id="CABMSInput" required>
+          <label for="serieInput" id="lCABMS">CABMS</label>
         </div>
       </div>
-      <div class="row mt-2 mx-0 borde-inf">
-        <div class="text-center font-color">
-          Antes del servicio
+
+      <div class="grid">
+          <h4>Identicicacion de equipo</h4>     
+      </div>
+      <div class="grid">
+        <div class="col imagenes">
+          <small>Placa de identificacíon</small>                           
+          <img src="" class="hidden" id="imgIdent" height="124">
+          <input type="file" class="file-input" id="inputIdent" accept=".jpg, .jpeg" title="Identificación" onchange="onFileSelected(event, 'imgIdent')">
+          <label for="inputIdent" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
+        </div>
+        <div class="col imagenes"> 
+          <small>Clave CABMS</small>       
+          <img src="" class="hidden" id="imgClave" height="124">
+          <input type="file" class="file-input" id="inputClave" accept=".jpg, .jpeg" title="Clave" onchange="onFileSelected(event, 'imgClave')">
+          <label for="inputClave" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
         </div>
       </div>
-      <div class="row mx-0 mt-0 gx-2 gy-2">
-        <div class="col ">
-          <div class="input-group-sm">          
-            <input type="file" class="form-control font-color" id="inputAnts1" accept=".jpg, .jpeg" title="Antes 1" onchange="onFileSelected(event, 'imgAnts1')">
-            <img class="mx-auto d-block visually-hidden" id="imgAnts1" height="124">
-          </div>
+
+      <div class="grid">        
+        <h4>Antes del servicio</h4>        
+      </div>
+      <div class="grid">
+        <div class="col imagenes">                    
+          <img src="" class="hidden" id="imgAnts1" height="124">
+          <input type="file" class="file-input" id="inputAnts1" accept=".jpg, .jpeg" title="Antes 1" onchange="onFileSelected(event, 'imgAnts1')">
+          <label for="inputAnts1" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
         </div>
-        <div class="col ">
-          <div class="input-group-sm">          
-            <input type="file" class="form-control font-color" id="inputAnts2" accept=".jpg, .jpeg" title="Antes 2" onchange="onFileSelected(event, 'imgAnts2')">
-            <img class="mx-auto d-block visually-hidden" id="imgAnts2" height="124">
-          </div>
+        <div class="col imagenes">                   
+          <img src="" class="hidden" id="imgAnts2" height="124">
+          <input type="file" class="file-input" id="inputAnts2" accept=".jpg, .jpeg" title="Antes 2" onchange="onFileSelected(event, 'imgAnts2')">
+          <label for="inputAnts2" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
         </div>
       </div>
-      <div class="row mt-2 mx-0 borde-inf">
-        <div class="text-center font-color">
-          Durante el servicio
+      <div class="grid">
+        <h4>Durante el servicio</h4>
+      </div>
+      <div class="grid">
+        <div class="col imagenes">                    
+          <img src="" class="hidden" id="imgDurant1" height="124">
+          <input type="file" class="file-input" id="inputDurant1" accept=".jpg, .jpeg" title="Durante 1" onchange="onFileSelected(event, 'imgDurant1')">
+          <label for="inputDurant1" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
+        </div>
+        <div class="col imagenes">                    
+          <img src="" class="hidden" id="imgDurant2" height="124">
+          <input type="file" class="file-input" id="inputDurant2" accept=".jpg, .jpeg" title="Durante 2" onchange="onFileSelected(event, 'imgDurant2')">
+          <label for="inputDurant2" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
         </div>
       </div>
-      <div class="row mx-0 mt-0 gx-2 gy-2">
-        <div class="col ">
-          <div class="input-group-sm">          
-            <input type="file" class="form-control font-color" id="inputDurant1" accept=".jpg, .jpeg" title="Durante 1" onchange="onFileSelected(event, 'imgDurant1')">
-            <img class="mx-auto d-block visually-hidden" id="imgDurant1" height="124">
-          </div>
+      <div class="grid">
+        <h4>Después del servicio</h4>
+      </div>
+      <div class="grid">
+        <div class="col imagenes">                    
+          <img src="" class="hidden" id="imgDespues1" height="124">
+          <input type="file" class="file-input" id="inputDespues1" accept=".jpg, .jpeg" title="Despues 1" onchange="onFileSelected(event, 'imgDespues1')">
+          <label for="inputDespues1" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
         </div>
-        <div class="col ">
-          <div class="input-group-sm">          
-            <input type="file" class="form-control font-color" id="inputDurant2" accept=".jpg, .jpeg" title="Durante 2" onchange="onFileSelected(event, 'imgDurant2')">
-            <img class="mx-auto d-block visually-hidden" id="imgDurant2" height="124">
-          </div>
+        <div class="col imagenes">                    
+          <img src="" class="hidden" id="imgDespues2" height="124">
+          <input type="file" class="file-input" id="inputDespues2" accept=".jpg, .jpeg" title="Despues 2" onchange="onFileSelected(event, 'imgDespues2')">
+          <label for="inputDespues2" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
         </div>
       </div>
-      <div class="row mt-3 mx-0 borde-inf">
-        <div class="text-center font-color">
-          Después del servicio
-        </div>
-      </div>
-      <div class="row mx-0 mt-0 gx-2 gy-2">
-        <div class="col ">
-          <div class="input-group-sm">          
-            <input type="file" class="form-control font-color" id="inputDespues1" accept=".jpg, .jpeg" title="Despues 1" onchange="onFileSelected(event, 'imgDespues1')">
-            <img class="mx-auto d-block visually-hidden" id="imgDespues1" height="124">
-          </div>
-        </div>
-        <div class="col ">
-          <div class="input-group-sm">          
-            <input type="file" class="form-control font-color" id="inputDespues2" accept=".jpg, .jpeg" title="Despues 2" onchange="onFileSelected(event, 'imgDespues2')">
-            <img class="mx-auto d-block visually-hidden" id="imgDespues2" height="124">
-          </div>
-        </div>
-      </div>
-      <div class="row my-4 mx-0">
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary px-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Generar PDF</button>
-        </div>
+      <div class="grid">        
+        <button type="submit" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Generar PDF</button>        
       </div>
     </form>
     <div class="gafets" style="display: none;">
       <img src="archivos/gfm.jpg" id="gfm" alt="Fernando">
       <img src="archivos/gd.jpg" id="gd" alt="Diego">
     </div>
-  </div>
+  </section>
 
   <div class="offcanvas offcanvas-top mx-3" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
     <div class="offcanvas-header p-2">

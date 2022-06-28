@@ -86,9 +86,23 @@ function formatoPDF() {
   }
 }
 
-function leerDatos() {
-  let fecha = new Date(Date.now())
-  document.getElementById('fechaInput').value = fecha.toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long', year:'numeric'})
+function fechaFormato (fecha) {
+  if (fecha === 'today')
+    fecha = new Date()
+  else 
+    fecha = new Date(fecha + 'GMT-5')
+  fecha = fecha.toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long', year:'numeric'})
+  fecha = fecha.split(' de ')
+  fecha[1] = fecha[1].charAt(0).toUpperCase() + fecha[1].slice(1)
+  return fecha.join(' ')
+}
+
+function cambiarFecha(event) {
+  document.getElementById('fechaUI').textContent = fechaFormato(event.target.value)
+}
+
+function leerDatos() {  
+  document.getElementById('fechaUI').textContent = fechaFormato('today')
   pdf = new jsPDF('p', 'pt', 'letter', false, true)
   formatoPDF()
   iframe.src = ""
@@ -96,12 +110,11 @@ function leerDatos() {
 
 function limpiarImgs() {
   const imagenes = formulario.getElementsByTagName('img')
-  // imagenes.forEach(imagen => 
   for (const imagen of imagenes) {
     imagen.removeAttribute('alt')
     imagen.removeAttribute('src')
-    imagen.classList.add("visually-hidden")
-  } // )
+    imagen.classList.add("hidden")
+  }
 }
 
 function onFileSelected(event, imgTxt) {
@@ -125,7 +138,7 @@ function onFileSelected(event, imgTxt) {
         imgtag.src = srcEncoded
       }
     }
-    document.getElementById(imgTxt).classList.remove("visually-hidden")
+    document.getElementById(imgTxt).classList.remove("hidden")
   }
 }
 
@@ -145,30 +158,23 @@ function strNdos (str) {
 
 function createPDF(event) { 
   event.preventDefault()
-  // impresión textos
-  
   const ubicacion = document.getElementById('ubicaInput').value
   const txtSerie = document.getElementById('serieInput')
-  const txtFecha = document.getElementById('fechaInput')
-  let inFecha = txtFecha.value.replace(" de ", "-").replace(" de ", "-")
-  inFecha = inFecha.split(' ')
-  if (inFecha[1] === undefined) 
-    inFecha = inFecha[0]
-  else 
-    inFecha = inFecha[1]    
+  const txtFecha = document.getElementById('fechaUI').textContent
+  let inFecha = txtFecha.split(',')
+  inFecha[1] = inFecha[1].trim().replaceAll(" ", "-")
+  inFecha = inFecha[1]    
 
   if(formato) {
     pdf.setFontSize(18)
     const mantPoC = document.getElementById('correctivo').selectedOptions[0].text
     pdf.text(mantPoC, 248, 84)
 
-    pdf.setFontSize(10)    
-    
-    pdf.text(txtFecha.value, 410, 86)
-
+    pdf.setFontSize(10)
+    pdf.text(txtFecha, 410, 86)
     pdf.text(ubicacion, 428, 114)    
     const txtEquipo = document.getElementById('equipoInput').value    
-    if (txtEquipo.length > 32) {
+    if (txtEquipo.length > 40) {
       let t2Equipo = strNdos(txtEquipo)
       pdf.text(t2Equipo[0], 104, 107)
       pdf.text(t2Equipo[1], 104, 121)
@@ -214,7 +220,7 @@ function createPDF(event) {
     pdf.setFontSize(9)
     const cabms = document.getElementById('CABMSInput').value
     pdf.text(cabms, 318, 205, 270)
-    debugger
+    
     const gafet = document.getElementById('gfm')
     pdf.addImage(gafet.src, 'JPEG', 282, 642, 73, 105, undefined, 'MEDIUM')
   
@@ -225,18 +231,11 @@ function createPDF(event) {
     pdf.text(mantPoC, 363, 75)
 
     pdf.setFontSize(10)    
-    let pdfFecha = txtFecha.value.replace(" de ", "/").replace(" de ", "/")
-    pdfFecha = pdfFecha.split(' ')
-    if (pdfFecha[1] === undefined) {
-      inFecha = pdfFecha[0]
-    } else {
-      pdfFecha = pdfFecha[1]
-    }
+    const pdfFecha = inFecha.replaceAll("-", "/")    
     pdf.text(pdfFecha, 428, 96)
-
     pdf.text(ubicacion, 428, 137)    
     const txtEquipo = document.getElementById('equipoInput').value    
-    if (txtEquipo.length > 32) {
+    if (txtEquipo.length > 40) {
       let t2Equipo = strNdos(txtEquipo)
       pdf.text(t2Equipo[0], 106, 100)
       pdf.text(t2Equipo[1], 106, 114)
@@ -247,8 +246,7 @@ function createPDF(event) {
     const txtModelo = document.getElementById('modeloInput')
     pdf.text(txtModelo.value, 268, 132)
     const txtMarca = document.getElementById('marcaInput')
-    pdf.text(txtMarca.value, 428, 116)
-    
+    pdf.text(txtMarca.value, 428, 116)    
     pdf.text(txtSerie.value, 106, 132)
 
     const fotos = formulario.getElementsByTagName('img')
@@ -297,15 +295,12 @@ function createPDF(event) {
     
     const cabms = document.getElementById('CABMSInput').value
     pdf.text(cabms, 378, 160)
-    debugger
+    
     const gafet = document.getElementById('gd')
     pdf.addImage(gafet.src, 'JPEG', 142, 650, 73, 100, undefined, 'MEDIUM')
   }
   
   iframe.src = pdf.output('datauristring')
-  iframe.onload = (ev) => {
-    console.log('iframe load')
-  }
   
   document.getElementById('btnDescargar').addEventListener('click', () => {
     pdf.save(ubicacion +' '+ txtSerie.value +' '+ inFecha +'.pdf')
