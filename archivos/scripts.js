@@ -85,7 +85,7 @@ function formatoPDF() {
     pdf.text('Alejandro Mendoza Cruz', 255, 727)
   }
 }
-
+// Formato fecha en string 
 function fechaFormato (fecha) {
   if (fecha === 'today')
     fecha = new Date()
