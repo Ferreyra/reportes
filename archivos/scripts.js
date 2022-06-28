@@ -85,13 +85,16 @@ function formatoPDF() {
     pdf.text('Alejandro Mendoza Cruz', 255, 727)
   }
 }
-// Formato fecha en string 
+ 
 function fechaFormato (fecha) {
-  if (fecha === 'today')
-    fecha = new Date()
-  else 
-    fecha = new Date(fecha + 'GMT-5')
-  fecha = fecha.toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long', year:'numeric'})
+  const objFecha = new Date()
+  if (fecha !== 'today') {
+    fecha = fecha.split('-')
+    objFecha.setFullYear(parseInt(fecha[0]))
+    objFecha.setMonth(parseInt(fecha[1])-1)
+    objFecha.setDate(parseInt(fecha[2]))
+  }
+  fecha = objFecha.toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long', year:'numeric'})
   fecha = fecha.split(' de ')
   fecha[1] = fecha[1].charAt(0).toUpperCase() + fecha[1].slice(1)
   return fecha.join(' ')
