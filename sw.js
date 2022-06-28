@@ -1,4 +1,4 @@
-const STATIC_CACHE    = 'static-v2.3';
+const STATIC_CACHE    = 'static-v2.4';
 const DYNAMIC_CACHE   = 'dynamic-v2.4';
 const INMUTABLE_CACHE = 'inmutable-v2.5';
 
@@ -15,11 +15,7 @@ const APP_SHELL = [
 const APP_SHELL_INMUTABLE = [
   'archivos/bootstrap.min.css',
   'archivos/bootstrap.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
-  // 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/src/libs/png.js',
-  // 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/src/modules/addimage.js',
-  // 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/src/modules/jpeg_support.js',
-  // 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/src/modules/png_support.js'
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
 ];
 
 function actCache( rqcache, req, resp ) {

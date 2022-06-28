@@ -1,14 +1,12 @@
 :root {
   --bg-color: #000000;
-  --bg-light: #232535;
-  --font-color: #c5cddb;
+  --font-color: #ebf3ff;
   --font-light: #ffffff;
   --font-w: 400;
 }
 .lightMode {
-  --bg-color: #cfd0d6;
-  --bg-light: #DCDACA;
-  --font-color: #3D3D3D;
+  --bg-color: #e0f0f3;
+  --font-color: #2e2e2e;
   --font-light: #000000;
   --font-w: 500;
 }
@@ -17,16 +15,8 @@
   box-sizing: border-box;
 }
 
-.borde {
-  border: dotted 1px greenyellow;
-}
-
 body {
   background-color: var(--bg-color);
-}
-
-.borde-inf {
-  border-bottom: dotted 2px rgb(25, 122, 167);
 }
 
 label, select{
@@ -112,7 +102,7 @@ section {
   position: relative;
   bottom: .5em;
   font-size: 1.1em;
-  color: grey;
+  color: var(--font-color);
   left: .7em;
   background: none;
 }
@@ -145,9 +135,17 @@ section {
 }
 .grid h4 {
   margin: .5em auto;
-  color: var(--font-light);
+  color: var(--font-light);  
+  border-bottom: dotted 2px rgb(25, 122, 167);    /* #09ccac; */
+  width: 92%;
+  text-align: center;
   font-size: 1.2rem;
 }
+
+.date svg [fill] {
+  fill: var(--font-color) !important
+}
+
 .file-input {
   width: 0.1px;
   height: 0.1px;
