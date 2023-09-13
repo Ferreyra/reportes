@@ -133,6 +133,19 @@ section {
   bottom: 2.2em;
   color: gray;
 }
+
+.check {
+  display: block;
+  min-height: 1.5rem;
+  width: 90%;
+  margin: 0.8em 1.4em;
+}
+.check label {
+  padding-left: 0.3em;
+  font-size: 1.1em;
+  color: var(--font-color);
+}
+
 .grid h4 {
   margin: .5em auto;
   color: var(--font-light);  

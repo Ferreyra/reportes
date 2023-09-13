@@ -1,3 +1,7 @@
+const IMAGE = {WIDTH: 242, HEIGHT: 242, 
+               X1: 58,  Y1: 180, X2: 312, Y2: 122}
+const FOTO = {WIDTH: IMAGE.WIDTH-4, HEIGHT: IMAGE.HEIGHT-4}
+
 var url = window.location.href;
 const { jsPDF } = window.jspdf;
 
@@ -6,6 +10,7 @@ var pdf, formato = true
 const formulario = document.querySelector('form')
 const canvas = document.getElementById('offcanvasTop')
 const iframe = document.getElementById('iframePDF')
+const fotos = formulario.querySelectorAll('img')
 const cambiarFormato = document.getElementById('xFormato')
 cambiarFormato.addEventListener('click', () => {
   formato = !formato
@@ -22,53 +27,72 @@ if ( navigator.serviceWorker ) {
   navigator.serviceWorker.register( swLocation );
 }
 
-function formatoPDF() {
+function formatoPDF() {             // formato inicial
   if (formato) {
-    // formato inicial
-    pdf.setFontSize(18)  
-    pdf.text('Reporte mantenimiento', 58, 84)
-    pdf.setFontSize(12)
-    pdf.text('Fecha:', 368, 86)
+    pdf.setFontSize(16)  
+    pdf.text('Reporte fotográfico de mantenimiento', 58, 84)
     pdf.setFontSize(10)
-    pdf.text('Elaboró:', 98, 702)
-    pdf.text('Ing. Fernando Monzón Arellano', 115, 735)
-    pdf.text('Equipo:', 62, 114)
-    pdf.text('Lugar:', 392, 114) 
-    pdf.text('Modelo:', 62, 147) 
-    pdf.text('Marca:', 227, 147) 
-    pdf.text('Serie:', 392, 147)  
-    pdf.rect(58, 94, 495, 66)     
-    pdf.line(58, 127, 552, 127)    // Separador renglones  
-    pdf.line(223, 127, 223, 160)
-    pdf.line(388, 94, 388, 160)    // Mitad de la tabla 305
-    pdf.line(100, 94, 100, 160)    // Divisiones /3  
-    pdf.line(261, 127, 261, 160) 
-    pdf.line(422, 94, 422, 160)
-    pdf.rect(90, 164, 215, 129)
-    pdf.rect(90, 293, 215, 129)
-    pdf.rect(90, 422, 215, 129)
-    pdf.rect(90, 551, 215, 129)
-    pdf.rect(337, 164, 215, 129)
-    pdf.rect(337, 293, 215, 129)
-    pdf.rect(337, 422, 215, 129)
-    pdf.rect(337, 551, 215, 129)
-    pdf.rect(94, 688, 187, 59)
+    pdf.text('Fecha:', 368, 66)
+
+    // horizontales
+    pdf.rect(58, 94,  495, 77)
+    pdf.line(58, 119, 552, 119)     // Separador renglones  
+    pdf.line(58, 147, 552, 147)     // Separador renglones  
+    // verticales
+    pdf.line(100, 119, 100, 171)    // Divisiones /3  
+    pdf.line(223, 146, 223, 171)
+    pdf.line(261, 146, 261, 171) 
+    pdf.line(307, 94,  307, 119)    // Mitad de la tabla 305
+    pdf.line(388, 146, 388, 171)
+    pdf.line(422, 119, 422, 171)
+    // pdf.text('Lugar:', 392, 114)// posición vertical?    
+    pdf.text('No. Inventario:', 62, 109)
+    pdf.text('No. Orden:', 311, 109)
+    pdf.text('Equipo:', 62, 135)    // Renglón medio
+    pdf.text('Modelo:', 62, 164)    // Renglón bajo
+    pdf.text('Marca:', 227, 164) 
+    pdf.text('Serie:', 392, 164)
+    pdf.rect(IMAGE.X1, IMAGE.Y1, IMAGE.WIDTH, IMAGE.HEIGHT+17)
+    pdf.rect(IMAGE.X1, IMAGE.Y1+IMAGE.HEIGHT+27, IMAGE.WIDTH, IMAGE.HEIGHT+17)
+    pdf.rect(IMAGE.X2, IMAGE.Y1, IMAGE.WIDTH, IMAGE.HEIGHT+17)
+    pdf.rect(IMAGE.X2, IMAGE.Y1+IMAGE.HEIGHT+27, IMAGE.WIDTH, IMAGE.HEIGHT+17)
+
+    pdf.setFontSize(9)    /* ajustar posición vertical */
+    pdf.text('Placa de Identificación', IMAGE.X1+(IMAGE.WIDTH/2), IMAGE.Y1+13, {align: "center"})
+    pdf.text('Clave CABMS', IMAGE.X2+(IMAGE.WIDTH/2), IMAGE.Y1+13, {align: "center"})
+    pdf.text('Antes del servicio', IMAGE.X1+(IMAGE.WIDTH/2), IMAGE.Y1+IMAGE.HEIGHT+40, {align: "center"})
+    pdf.text('Antes del servicio', IMAGE.X2+(IMAGE.WIDTH/2), IMAGE.Y1+IMAGE.HEIGHT+40, {align: "center"})
+
+    /* Segunda hoja */
+    pdf.addPage()
+    pdf.rect(IMAGE.X1, IMAGE.Y2, IMAGE.WIDTH, IMAGE.HEIGHT+17)
+    pdf.rect(IMAGE.X1, IMAGE.Y2+IMAGE.HEIGHT+27, IMAGE.WIDTH, IMAGE.HEIGHT+17)
+    pdf.rect(IMAGE.X2, IMAGE.Y2, IMAGE.WIDTH, IMAGE.HEIGHT+17)
+    pdf.rect(IMAGE.X2, IMAGE.Y2+IMAGE.HEIGHT+27, IMAGE.WIDTH, IMAGE.HEIGHT+17)
     pdf.setFontSize(9)
-    pdf.text('Placa de Identificación', 70, 170, 270)
-    pdf.text('CABMS', 318, 170, 270)
-    pdf.text('Antes del servicio', 70, 298, 270)
-    pdf.text('Antes del servicio', 318, 298, 270)
-    pdf.text('Durante el servicio', 70, 427, 270)
-    pdf.text('Durante el servicio', 318, 427, 270)
-    pdf.text('Después del servicio', 70, 557, 270)
-    pdf.text('Después del servicio', 318, 557, 270)
+    pdf.text('Durante el servicio', IMAGE.X1+(IMAGE.WIDTH/2), IMAGE.Y2+13, {align: "center"})
+    pdf.text('Durante el servicio', IMAGE.X2+(IMAGE.WIDTH/2), IMAGE.Y2+13, {align: "center"})
+    pdf.text('Después del servicio', IMAGE.X1+(IMAGE.WIDTH/2), IMAGE.Y2+IMAGE.HEIGHT+40, {align: "center"})
+    pdf.text('Después del servicio', IMAGE.X2+(IMAGE.WIDTH/2), IMAGE.Y2+IMAGE.HEIGHT+40, {align: "center"})
+
+    /* Tercer hoja */
+    pdf.addPage()
+    pdf.rect(IMAGE.X1, IMAGE.Y2, IMAGE.WIDTH, IMAGE.HEIGHT+17)    
+    pdf.rect(IMAGE.X2, IMAGE.Y2, IMAGE.WIDTH, IMAGE.HEIGHT+17)    
+    pdf.setFontSize(9)    
+    pdf.text('Etiqueta proveedor', IMAGE.X1+(IMAGE.WIDTH/2), IMAGE.Y2+13, {align: "center"})
+    pdf.text('Gafet de personal', IMAGE.X2+(IMAGE.WIDTH/2), IMAGE.Y2+13, {align: "center"})
+    pdf.rect(307-(188/2), IMAGE.Y2+IMAGE.HEIGHT+29, 188, 59)
+    pdf.setFontSize(10)
+    pdf.text('Elaboró:', 307-(188/2)+4, IMAGE.Y2+IMAGE.HEIGHT+42)
+    pdf.text('Ing. Fernando Monzón Arellano', 307-69, IMAGE.Y2+IMAGE.HEIGHT+78)
 
   } else {
     pdf.setDrawColor(135, 135, 135)
     pdf.setLineWidth(2)
     pdf.setFillColor(255, 255, 255)
     pdf.roundedRect(58, 68, 498, 683, 15, 15)
-    pdf.roundedRect(169, 58, 285, 24, 10, 10, 'FD')
+    pdf.roundedRect(171, 58, 285, 24, 10, 10, 'FD')
     pdf.line(58, 148, 556, 148)
     pdf.setFont('times', 'normal', 'normal')
     pdf.setFontSize(18)  
@@ -106,18 +130,22 @@ function cambiarFecha(event) {
 
 function leerDatos() {  
   document.getElementById('fechaUI').textContent = fechaFormato('today')
+  let fotoHeight = FOTO.HEIGHT
+  if ( !formato ) {
+    fotoHeight = 123
+  }
+  fotos.forEach( foto => foto.height = fotoHeight )
   pdf = new jsPDF('p', 'pt', 'letter', false, true)
   formatoPDF()
   iframe.src = ""
 }
 
 function limpiarImgs() {
-  const imagenes = formulario.getElementsByTagName('img')
-  for (const imagen of imagenes) {
-    imagen.removeAttribute('alt')
-    imagen.removeAttribute('src')
-    imagen.classList.add("hidden")
-  }
+  fotos.forEach( foto => {
+    foto.removeAttribute('alt')
+    foto.removeAttribute('src')
+    foto.classList.add("hidden")
+  })
 }
 
 function onFileSelected(event, imgTxt) {
@@ -131,10 +159,9 @@ function onFileSelected(event, imgTxt) {
       const imgElement = document.createElement('img')
       imgElement.src = event.target.result      
       imgElement.onload = (e) => {
-        const canvas = document.createElement("canvas")           
-        const scaleSize = 512 / e.target.height        
-        canvas.width = e.target.width * scaleSize
-        canvas.height = 512
+        const canvas = document.createElement("canvas") 
+        canvas.width = (768 * e.target.width) / e.target.height
+        canvas.height = 768
         const ctx = canvas.getContext("2d") 
         ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height) 
         const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg")
@@ -145,18 +172,28 @@ function onFileSelected(event, imgTxt) {
   }
 }
 
-function strNdos (str) {
+function strNdos (str, length) {
   let strArr = str.split(' ')
   let i = 0
   let lgWords = strArr[0].length
   do {
     i++
     lgWords += strArr[i].length + 1
-  } while (lgWords <= 40)
+  } while (lgWords <= length)
   lgWords -= strArr[i].length
   strArr[0] = str.substr(0, lgWords)
   strArr[1] = str.substr(lgWords)
   return [strArr[0], strArr[1]]
+}
+
+function centrarFotoX (width) {
+  return Math.floor((FOTO.WIDTH - width) / 2)
+}
+
+function centrarFotoY (foto) {
+  foto.height = (FOTO.WIDTH * foto.height) / foto.width
+  foto.width = FOTO.WIDTH
+  return Math.floor((FOTO.HEIGHT - foto.height) / 2)
 }
 
 function createPDF(event) { 
@@ -169,63 +206,75 @@ function createPDF(event) {
   inFecha = inFecha[1]    
 
   if(formato) {
-    pdf.setFontSize(18)
+    pdf.setPage(1)
+    pdf.setFontSize(16)
     const mantPoC = document.getElementById('correctivo').selectedOptions[0].text
-    pdf.text(mantPoC, 248, 84)
-
-    pdf.setFontSize(10)
-    pdf.text(txtFecha, 410, 86)
-    pdf.text(ubicacion, 428, 114)    
-    const txtEquipo = document.getElementById('equipoInput').value    
-    if (txtEquipo.length > 40) {
-      let t2Equipo = strNdos(txtEquipo)
-      pdf.text(t2Equipo[0], 104, 107)
-      pdf.text(t2Equipo[1], 104, 121)
-    } else {
-      pdf.text(txtEquipo, 104, 114)
+    pdf.text(mantPoC, 330, 84)  //posición horizontal ?
+    const eqMedico = document.getElementById('equipoMedico')
+    if ( eqMedico.checked ) {
+      pdf.text("a equipo medico", 408, 84)
     }
-
+    pdf.setFontSize(10)
+    pdf.text(txtFecha, 410, 66)
+    const cabms = document.getElementById('CABMSInput').value
+    pdf.text(cabms, 136, 109)
+    const nOrden = document.getElementById('noOrden').value
+    pdf.text(nOrden, 392, 109)
+    pdf.text(ubicacion, 428, 135)    
+    const txtEquipo = document.getElementById('equipoInput').value
+    if (txtEquipo.length > 45) {
+      let t2Equipo = strNdos(txtEquipo, 45)
+      pdf.text(t2Equipo[0], 104, 130) // 135-5
+      pdf.text(t2Equipo[1], 104, 142) // 135+7
+    } else {
+      pdf.text(txtEquipo, 104, 135)
+    }
     const txtModelo = document.getElementById('modeloInput')
-    pdf.text(txtModelo.value, 104, 147)
+    pdf.text(txtModelo.value, 104, 164)
     const txtMarca = document.getElementById('marcaInput')
-    pdf.text(txtMarca.value, 265, 147)
+    pdf.text(txtMarca.value, 265, 164)
+    pdf.text(txtSerie.value, 428, 164)
 
-    pdf.text(txtSerie.value, 428, 147)
-
-    const fotos = formulario.getElementsByTagName('img')
-    let i = 1, x = 93, y = 168
-    for (const foto of fotos) {
+    let i = 1, x, y = IMAGE.Y1 + 20
+    fotos.forEach ( foto => {
       if ( i % 2 === 0) {
-        x = 340      
+        x = IMAGE.X2 + 2      
       } else {
-        x = 93
+        x = IMAGE.X1 + 2
       }
       if ( i > 2 && i < 5) {
-        y = 295
+        y = IMAGE.Y1 + IMAGE.HEIGHT + 47
       }
-      if ( i > 4 && i < 7) {
-        y = 425
-      }
-      if ( i > 6) {
-        y = 554
+      if ( i > 4 && i < 9) {
+        pdf.setPage(2)       // hoja 2
+        if ( i < 7) {
+          y = IMAGE.Y2 + 20
+        }
+        if ( i > 6 ) {
+          y = IMAGE.Y2 + IMAGE.HEIGHT + 47
+        }
+      }      
+      if ( i > 8 ) {
+        pdf.setPage(3)       // hoja 3
+        x = IMAGE.X1 + 2
+        y = IMAGE.Y2 + 20
       }
       if (foto.alt !== "") {
-        let fotoWidth = 209, xOffset = 0
-        if (foto.width < fotoWidth) {
-          xOffset = Math.floor((fotoWidth - foto.width) / 2)
-          x += xOffset
-          fotoWidth = foto.width
+        if (foto.width < FOTO.WIDTH) {
+          x += centrarFotoX(foto.width)
         }
-        pdf.addImage(foto, 'JPEG', x, y, fotoWidth, 123, undefined, 'MEDIUM')
+        if (foto.width > FOTO.WIDTH) {
+          y += centrarFotoY(foto)
+        }
+        pdf.addImage(foto, 'JPEG', x, y, foto.width, foto.height, undefined, 'MEDIUM')
       }    
       i++
-    }
-    pdf.setFontSize(9)
-    const cabms = document.getElementById('CABMSInput').value
-    pdf.text(cabms, 318, 205, 270)
-    
+    })
     const gafet = document.getElementById('gfm')
-    pdf.addImage(gafet.src, 'JPEG', 282, 642, 73, 105, undefined, 'MEDIUM')
+    gafet.width = (FOTO.HEIGHT * gafet.width) / gafet.height
+    gafet.height = FOTO.HEIGHT
+    x = IMAGE.X2 + centrarFotoX(gafet.width)
+    pdf.addImage(gafet.src, 'JPEG', x, y, gafet.width, gafet.height, undefined, 'MEDIUM')
   
   } else {
 
@@ -239,7 +288,7 @@ function createPDF(event) {
     pdf.text(ubicacion, 428, 137)    
     const txtEquipo = document.getElementById('equipoInput').value    
     if (txtEquipo.length > 40) {
-      let t2Equipo = strNdos(txtEquipo)
+      let t2Equipo = strNdos(txtEquipo, 40)
       pdf.text(t2Equipo[0], 106, 100)
       pdf.text(t2Equipo[1], 106, 114)
     } else {
@@ -252,9 +301,8 @@ function createPDF(event) {
     pdf.text(txtMarca.value, 428, 116)    
     pdf.text(txtSerie.value, 106, 132)
 
-    const fotos = formulario.getElementsByTagName('img')
     let i = 1, x = 83, y = 153   // y-15  x-10
-    for (const foto of fotos) {
+    fotos.forEach ( foto => {
       if ( i % 2 === 0) {
         x = 335  // -5
       } else {
@@ -269,20 +317,17 @@ function createPDF(event) {
       if ( i > 6) {
         y = 539
       }
-      if (foto.alt !== "") {
-        let fotoWidth = 209, xOffset = 0
-        if (foto.width < fotoWidth) {
-          xOffset = Math.floor((fotoWidth - foto.width) / 2)
-          x += xOffset
-          fotoWidth = foto.width
+      if (foto.alt !== "") {        
+        if (foto.width < 209) {          
+          x += centrarFotoX(foto.width)
         }
-        pdf.addImage(foto, 'JPEG', x, y, fotoWidth, 123, undefined, 'MEDIUM')
+        pdf.addImage(foto, 'JPEG', x, y, foto.width, foto.height, undefined, 'MEDIUM')
       }    
       i++
-    }
+    })
     pdf.setFillColor(255, 255, 255)
     pdf.roundedRect(82, 149, 105, 15, 8, 8, 'F')
-    pdf.text('Placa de Identificación', 90, 160)
+    pdf.text('Placa de Identificación', 58, 160)
     pdf.setFillColor(255, 255, 255)
     pdf.roundedRect(332, 149, 120, 15, 8, 8, 'F')
     pdf.text('CABMS', 340, 160)

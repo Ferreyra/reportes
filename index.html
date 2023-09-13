@@ -16,7 +16,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="archivos/icons/icon-192x192.png">
   <link rel="apple-touch-icon" sizes="152x152" href="archivos/icons/icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="archivos/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="160x160" href="archivos/icons/icon-192x192.png">
   <link rel="apple-touch-icon" sizes="167x167" href="archivos/icons/icon-152x152.png">
 
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -28,7 +28,7 @@
     <div class="grid">
       <div class="col" id="titulo">
         <label for="correctivo" id="xFormato">Reporte mantenimiento</label>
-        <select class="options" id="correctivo" title="Tipo de Mantenimineto">
+        <select class="options" id="correctivo" title="Tipo de Mantenimiento">
           <option selected>preventivo</option>
           <option>correctivo</option>
         </select>
@@ -58,11 +58,11 @@
         </div>
         <div class="col-auto">
           <input type="text" id="marcaInput" required>
-          <label for="marcaSelect" id="lMarca">Marca</label>          
+          <label for="marcaInput" id="lMarca">Marca</label>          
         </div>
         <div class="col-auto">
           <input type="text" id="modeloInput" required>         
-          <label for="modeloSelect" id="lModelo">Modelo</label>
+          <label for="modeloInput" id="lModelo">Modelo</label>
         </div>
         <div class="col-auto">
           <input type="text" id="serieInput" required>
@@ -70,21 +70,29 @@
         </div>
         <div class="col-auto">
           <input type="text" id="ubicaInput" required>
-          <label for="serieInput" id="lUbica">Ubicación</label>
+          <label for="ubicaInput" id="lUbica">Ciudad</label>
         </div>
         <div class="col-auto">
           <input type="text" id="CABMSInput" required>
-          <label for="serieInput" id="lCABMS">CABMS</label>
+          <label for="CABMSInput" id="lCABMS">No. Inventario</label>
+        </div>
+        <div class="col-auto">
+          <input type="text" id="noOrden">
+          <label for="noOrden" id="lOrden">No. Orden</label>
+        </div>
+        <div class="check">
+          <input class="form-check-input" type="checkbox" name="equipoMedico" id="equipoMedico">
+          <label class="form-check-label" for="equipoMedico">Equipo medico</label>
         </div>
       </div>
 
       <div class="grid">
-          <h4>Identicicacion de equipo</h4>     
+          <h4>Identificación de equipo</h4>     
       </div>
       <div class="grid">
         <div class="col imagenes">
-          <small>Placa de identificacíon</small>                           
-          <img src="" class="hidden" id="imgIdent" height="124">
+          <small>Placa de identificación</small>                           
+          <img src="" class="hidden" id="imgIdent">
           <input type="file" class="file-input" id="inputIdent" accept=".jpg, .jpeg" title="Identificación" onchange="onFileSelected(event, 'imgIdent')">
           <label for="inputIdent" class="font-color file-input-label">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +115,7 @@
         </div>
         <div class="col imagenes"> 
           <small>Clave CABMS</small>       
-          <img src="" class="hidden" id="imgClave" height="124">
+          <img src="" class="hidden" id="imgClave">
           <input type="file" class="file-input" id="inputClave" accept=".jpg, .jpeg" title="Clave" onchange="onFileSelected(event, 'imgClave')">
           <label for="inputClave" class="font-color file-input-label">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -135,7 +143,7 @@
       </div>
       <div class="grid">
         <div class="col imagenes">                    
-          <img src="" class="hidden" id="imgAnts1" height="124">
+          <img src="" class="hidden" id="imgAnts1">
           <input type="file" class="file-input" id="inputAnts1" accept=".jpg, .jpeg" title="Antes 1" onchange="onFileSelected(event, 'imgAnts1')">
           <label for="inputAnts1" class="font-color file-input-label">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -157,7 +165,7 @@
           </label>          
         </div>
         <div class="col imagenes">                   
-          <img src="" class="hidden" id="imgAnts2" height="124">
+          <img src="" class="hidden" id="imgAnts2">
           <input type="file" class="file-input" id="inputAnts2" accept=".jpg, .jpeg" title="Antes 2" onchange="onFileSelected(event, 'imgAnts2')">
           <label for="inputAnts2" class="font-color file-input-label">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -184,7 +192,7 @@
       </div>
       <div class="grid">
         <div class="col imagenes">                    
-          <img src="" class="hidden" id="imgDurant1" height="124">
+          <img src="" class="hidden" id="imgDurant1">
           <input type="file" class="file-input" id="inputDurant1" accept=".jpg, .jpeg" title="Durante 1" onchange="onFileSelected(event, 'imgDurant1')">
           <label for="inputDurant1" class="font-color file-input-label">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -206,7 +214,7 @@
           </label>          
         </div>
         <div class="col imagenes">                    
-          <img src="" class="hidden" id="imgDurant2" height="124">
+          <img src="" class="hidden" id="imgDurant2">
           <input type="file" class="file-input" id="inputDurant2" accept=".jpg, .jpeg" title="Durante 2" onchange="onFileSelected(event, 'imgDurant2')">
           <label for="inputDurant2" class="font-color file-input-label">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -233,7 +241,7 @@
       </div>
       <div class="grid">
         <div class="col imagenes">                    
-          <img src="" class="hidden" id="imgDespues1" height="124">
+          <img src="" class="hidden" id="imgDespues1">
           <input type="file" class="file-input" id="inputDespues1" accept=".jpg, .jpeg" title="Despues 1" onchange="onFileSelected(event, 'imgDespues1')">
           <label for="inputDespues1" class="font-color file-input-label">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -255,9 +263,36 @@
           </label>          
         </div>
         <div class="col imagenes">                    
-          <img src="" class="hidden" id="imgDespues2" height="124">
+          <img src="" class="hidden" id="imgDespues2">
           <input type="file" class="file-input" id="inputDespues2" accept=".jpg, .jpeg" title="Despues 2" onchange="onFileSelected(event, 'imgDespues2')">
           <label for="inputDespues2" class="font-color file-input-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_55)">
+              <path d="M3.125 21.775C2.60833 21.775 2.16667 21.5917 1.8 21.225C1.43333 20.8583 1.25 20.4167 1.25 19.9V8.075C1.25 7.55833 1.43333 7.11667 1.8 6.75C2.16667 6.38333 2.60833 6.2 3.125 6.2H6.275L8.075 4.225H14.075V7.975H17V10.9H20.75V19.9C20.75 20.4167 20.5627 20.8583 20.188 21.225C19.8127 21.5917 19.375 21.775 18.875 21.775H3.125ZM11 18.325C12.2167 18.325 13.246 17.904 14.088 17.062C14.9293 16.2207 15.35 15.1917 15.35 13.975C15.35 12.7583 14.9293 11.729 14.088 10.887C13.246 10.0457 12.2167 9.625 11 9.625C9.78333 9.625 8.75433 10.0457 7.913 10.887C7.071 11.729 6.65 12.7583 6.65 13.975C6.65 15.1917 7.071 16.2207 7.913 17.062C8.75433 17.904 9.78333 18.325 11 18.325ZM11 16.45C10.3 16.45 9.71267 16.2127 9.238 15.738C8.76267 15.2627 8.525 14.675 8.525 13.975C8.525 13.275 8.76267 12.6873 9.238 12.212C9.71267 11.7373 10.3 11.5 11 11.5C11.7 11.5 12.2877 11.7373 12.763 12.212C13.2377 12.6873 13.475 13.275 13.475 13.975C13.475 14.675 13.2377 15.2627 12.763 15.738C12.2877 16.2127 11.7 16.45 11 16.45ZM18.875 8.075V6.1H16.9V4.225H18.875V2.25H20.75V4.225H22.725V6.1H20.75V8.075H18.875Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_415_61" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+              <rect width="24" height="24" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_415_61)">
+              <path d="M5.07495 20.75C4.55828 20.75 4.11662 20.5667 3.74995 20.2C3.38328 19.8334 3.19995 19.3917 3.19995 18.875V5.10002C3.19995 4.58336 3.38328 4.14169 3.74995 3.77502C4.11662 3.40836 4.55828 3.22502 5.07495 3.22502H14.05V7.92502H16.025V9.90002H20.725V18.875C20.725 19.3917 20.5416 19.8334 20.1749 20.2C19.8083 20.5667 19.3666 20.75 18.85 20.75H5.07495ZM6.14995 16.925H17.775L14.15 12.1L11.2 16.025L8.99995 13.125L6.14995 16.925ZM16.95 8.97502V7.00002H14.975V5.12502H16.95V3.15002H18.825V5.12502H20.7999V7.00002H18.825V8.97502H16.95Z" fill="#DFDFDF"/>
+              </g>
+            </svg>
+          </label>          
+        </div>
+      </div>
+      <div class="grid">
+        <h4>Proveedor</h4>
+      </div>
+      <div class="grid">
+        <div class="col imagenes">                    
+          <img src="" class="hidden" id="imgEtiqueta">
+          <input type="file" class="file-input" id="inputEtiqueta" accept=".jpg, .jpeg" title="Etiqueta" onchange="onFileSelected(event, 'imgEtiqueta')">
+          <label for="inputEtiqueta" class="font-color file-input-label">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <mask id="mask0_415_55" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
               <rect width="24" height="24" fill="#D9D9D9"/>
