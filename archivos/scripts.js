@@ -81,7 +81,7 @@ function formatoPDF() {             // formato inicial
     pdf.rect(IMAGE.X2, IMAGE.Y2, IMAGE.WIDTH, IMAGE.HEIGHT+17)    
     pdf.setFontSize(9)    
     pdf.text('Etiqueta proveedor', IMAGE.X1+(IMAGE.WIDTH/2), IMAGE.Y2+13, {align: "center"})
-    pdf.text('Gafet de personal', IMAGE.X2+(IMAGE.WIDTH/2), IMAGE.Y2+13, {align: "center"})
+    pdf.text('Gafete de personal', IMAGE.X2+(IMAGE.WIDTH/2), IMAGE.Y2+13, {align: "center"})
     pdf.rect(307-(188/2), IMAGE.Y2+IMAGE.HEIGHT+29, 188, 59)
     pdf.setFontSize(10)
     pdf.text('Elaboró:', 307-(188/2)+4, IMAGE.Y2+IMAGE.HEIGHT+42)
@@ -212,7 +212,7 @@ function createPDF(event) {
     pdf.text(mantPoC, 330, 84)  //posición horizontal ?
     const eqMedico = document.getElementById('equipoMedico')
     if ( eqMedico.checked ) {
-      pdf.text("a equipo medico", 408, 84)
+      pdf.text("a equipo médico", 408, 84)
     }
     pdf.setFontSize(10)
     pdf.text(txtFecha, 410, 66)
@@ -270,11 +270,12 @@ function createPDF(event) {
       }    
       i++
     })
-    const gafet = document.getElementById('gfm')
-    gafet.width = (FOTO.HEIGHT * gafet.width) / gafet.height
-    gafet.height = FOTO.HEIGHT
-    x = IMAGE.X2 + centrarFotoX(gafet.width)
-    pdf.addImage(gafet.src, 'JPEG', x, y, gafet.width, gafet.height, undefined, 'MEDIUM')
+    const gafete = document.getElementById('gfm')
+    /* gafete.width = (FOTO.HEIGHT * gafete.width) / gafete.height
+    gafete.height = FOTO.HEIGHT
+    x = IMAGE.X2 + centrarFotoX(gafete.width) */
+    x = IMAGE.X2 + 2
+    pdf.addImage(gafete.src, 'JPEG', x, y, FOTO.WIDTH, FOTO.HEIGHT, undefined, 'MEDIUM')
   
   } else {
 
