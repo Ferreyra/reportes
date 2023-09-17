@@ -235,19 +235,22 @@ function createPDF(event) {
     pdf.text(txtMarca.value, 265, 164)
     pdf.text(txtSerie.value, 428, 164)
 
-    let i = 1, x, y = IMAGE.Y1 + 20
+    let i = 1, x, y
     fotos.forEach ( foto => {
-      if ( i % 2 === 0) {
+      if ( i % 2 === 0 ) {
         x = IMAGE.X2 + 2      
       } else {
         x = IMAGE.X1 + 2
       }
-      if ( i > 2 && i < 5) {
+      if ( i < 3 ) {
+        y = IMAGE.Y1 + 20
+      }
+      if ( i > 2 && i < 5 ) {
         y = IMAGE.Y1 + IMAGE.HEIGHT + 47
       }
-      if ( i > 4 && i < 9) {
+      if ( i > 4 && i < 9 ) {
         pdf.setPage(2)       // hoja 2
-        if ( i < 7) {
+        if ( i < 7 ) {
           y = IMAGE.Y2 + 20
         }
         if ( i > 6 ) {
@@ -275,6 +278,7 @@ function createPDF(event) {
     gafete.height = FOTO.HEIGHT
     x = IMAGE.X2 + centrarFotoX(gafete.width) */
     x = IMAGE.X2 + 2
+    y = IMAGE.Y2 + 20
     pdf.addImage(gafete.src, 'JPEG', x, y, FOTO.WIDTH, FOTO.HEIGHT, undefined, 'MEDIUM')
   
   } else {
